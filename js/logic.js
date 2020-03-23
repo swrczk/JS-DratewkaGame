@@ -9,12 +9,12 @@ var logic = {
     dragon: 0,
     text: "",
     action: function () {
-        let comandResponse = document.getElementById("comandResponse")
+        let commandResponse = document.getElementById("commandResponse")
         let gameConsole = document.getElementById("gameConsole")
-        comandResponse.innerHTML = logic.gameDescription
+        commandResponse.innerHTML = logic.gameDescription
         gameConsole.style.display = "none"
         setTimeout(function () {
-            comandResponse.innerHTML = "What's now?"
+            commandResponse.innerHTML = "What's now?"
             gameConsole.style.display = "inline"
             document.getElementById("gameConsole").focus()
         }, 2000); //00
@@ -28,7 +28,7 @@ var logic = {
 
             setCurrentLocImg(currentLoc)
 
-            let currentLocData = document.getElementById("gameDescription")
+            let currentLocData = document.getElementById("gameText")
             let locDescription = "You can go:"
 
             if (currentLoc.isNorth()) {
@@ -119,47 +119,47 @@ var logic = {
 
                 switch (consoleArg) {
                     case "V": //info
-                        logic.text = document.getElementById("gameDescription").textContent
-                        var v = document.getElementById("gameDescription")
-                        v.innerHTML = INSTRUCTION
-                        v = document.getElementById("gameConsole")
-                        v.style.visibility = "hidden"
-                        v = document.getElementById("comandResponse")
-                        v.style.visibility = "hidden"
+                        logic.text = document.getElementById("gameText").textContent
+                        let gameText = document.getElementById("gameText")
+                        gameText.innerHTML = INSTRUCTION
+                        let gameConsole = document.getElementById("gameConsole")
+                        gameConsole.style.visibility = "hidden"
+                        let commandResponse = document.getElementById("commandResponse")
+                        commandResponse.style.visibility = "hidden"
+
                         setTimeout(function () {
                             document.body.onkeydown = function () {
-                                var m = document.getElementById("comandResponse")
-                                m.style.visibility = "visible"
-                                m = document.getElementById("gameConsole")
-                                m.style.visibility = "visible"
-                                m = document.getElementById("gameDescription")
-                                var teskt = logic.text.split(".")
-                                var locDescription = teskt[0];
-                                for (var i = 1; i < teskt.length; i++) {
-                                    locDescription += ".<br><br>" + teskt[i]
+                                commandResponse.style.visibility = "visible"
+                                gameConsole = document.getElementById("gameConsole")
+                                gameConsole.style.visibility = "visible"
+                                gameText = document.getElementById("gameText")
+                                let prevText = logic.text.split(".")
+                                let locDescription = prevText[0];
+                                for (let i = 1; i < prevText.length; i++) {
+                                    locDescription += ".<br><br>" + prevText[i]
                                 }
-                                m.innerHTML = locDescription
+                                gameText.innerHTML = locDescription
                                 document.body.onkeydown = ""
                                 document.getElementById("gameConsole").focus()
                             }
-                        }, 10)
+                        }, SAVE_TIME)
                         break;
 
                     case "G": //lore
-                        logic.text = document.getElementById("gameDescription").textContent
-                        var v = document.getElementById("gameDescription")
+                        logic.text = document.getElementById("gameText").textContent
+                        let v = document.getElementById("gameText")
                         v.innerHTML = LORE_INFO
                         v = document.getElementById("gameConsole")
                         v.style.visibility = "hidden"
-                        v = document.getElementById("comandResponse")
+                        v = document.getElementById("commandResponse")
                         v.style.visibility = "hidden"
                         setTimeout(function () {
                             document.body.onkeydown = function () {
-                                var m = document.getElementById("comandResponse")
+                                var m = document.getElementById("commandResponse")
                                 m.style.visibility = "visible"
                                 m = document.getElementById("gameConsole")
                                 m.style.visibility = "visible"
-                                m = document.getElementById("gameDescription")
+                                m = document.getElementById("gameText")
                                 var teskt = logic.text.split(".")
                                 var locDescription = teskt[0];
                                 for (var i = 1; i < teskt.length; i++) {
@@ -200,6 +200,7 @@ var logic = {
                         if (places[logic.pion][logic.poziom].east == 1) {
 
                             logic.gameDescription = "You are going east..."
+                            logic.poziom++
                             logic.action()
                             logic.loadData()
                         } else {
@@ -211,7 +212,7 @@ var logic = {
                     case "W":
                         if (places[logic.pion][logic.poziom].west == 1 && logic.pion == 3 && logic.poziom == 1 && logic.dragon == 0) {
                             logic.gameDescription = "You can't go that way... "
-                            var currentLocData = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("commandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
                             currentLocData.innerHTML = logic.gameDescription
                             miejsce2.style.display = "none"
@@ -351,13 +352,13 @@ var logic = {
 
                         if (reakcja.specialMark == "N") {
                             logic.gameDescription = reakcja.komunikat[0]
-                            var currentLocData = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("commandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
                             currentLocData.innerHTML = logic.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 logic.gameDescription = reakcja.komunikat[1]
-                                var currentLocData = document.getElementById("comandResponse")
+                                var currentLocData = document.getElementById("commandResponse")
                                 var miejsce2 = document.getElementById("gameConsole")
                                 currentLocData.innerHTML = logic.gameDescription
                                 miejsce2.style.display = "none"
@@ -388,7 +389,7 @@ var logic = {
                                     for (var i = 0; i < places[logic.pion][logic.poziom].locItem.length; i++) {
                                         places[logic.pion][logic.poziom].locItem[i] = 0
                                     }
-                                    var currentLocData = document.getElementById("comandResponse")
+                                    var currentLocData = document.getElementById("commandResponse")
                                     var miejsce2 = document.getElementById("gameConsole")
                                     currentLocData.innerHTML = logic.gameDescription
                                     miejsce2.style.display = "none"
@@ -409,7 +410,7 @@ var logic = {
                             places[logic.pion][logic.poziom].locItem[0] = logic.equipment
                             logic.equipment = 0
                             logic.gameDescription = reakcja.komunikat[0]
-                            var currentLocData = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("commandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
                             currentLocData.innerHTML = logic.gameDescription
                             miejsce2.style.display = "none"

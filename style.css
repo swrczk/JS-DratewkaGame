@@ -42,7 +42,7 @@ img {
 }
 
 
-#gameDescription {
+#gameText {
     width: 600px;
     height: 150px;
     padding-left: 20px;
@@ -115,7 +115,7 @@ img {
     background: black;
 }
 
-#comandResponse {
+#commandResponse {
     display: inline-block;
     height: 50px;
     font-size: 20px;
