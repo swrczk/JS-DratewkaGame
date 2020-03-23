@@ -7,6 +7,25 @@ function _pole() {
     this.south = arguments[5]
     this.west = arguments[6]
     this.item = arguments[7]
+
+    //----------
+
+    // this.dirs = [(this.north,ruch.pion--,"north"),(this.south,ruch.pion--,"south"),(this.west,ruch.poziom--,"west"),(this.east,ruch.poziom++,"east")]
+    //
+    // this.go= function(direction){
+    //     case(direction){
+    //
+    //     }
+    //     if (gra.lok[ruch.pion][ruch.poziom].north == 1) {
+    //         ruch.pion--
+    //         ruch.kom = "You are going north..."
+    //         ruch.komunikat()
+    //         ruch.ruch()
+    //     } else {
+    //         ruch.kom = "You can't go that way"
+    //         ruch.komunikat()
+    //     }
+    // }
 }
 
 function _reakcje() {

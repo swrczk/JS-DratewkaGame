@@ -111,50 +111,33 @@ var ruch = {
     kierunki: function () {
         kons.onkeydown = function (e) {
 
-            var x = e.which
+            var keyDownNumber = e.which
             var m = 0;
-            var przedmiot = 0;
+            var item = 0;
 
-            if (x == 13 || x == 38 || x == 40 || x == 37 || x == 39) {
-                var n = kons.value
+            if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
+                var consoleArg = kons.value
 
-                if (n == "NORTH" || x == 38) {
-                    n = "N"
-                }
-                if (n == "SOUTH" || x == 40) {
-                    n = "S"
-                }
-                if (n == "WEST" || x == 37) {
-                    n = "W"
-                }
-                if (n == "EAST" || x == 39) {
-                    n = "E"
-                }
+                if (!consoleArg.includes(" ")) {
+                    consoleArg = whichDirection(consoleArg, keyDownNumber)
 
-                if (n.split(" ").length == 2) {
-                    m = n.split(" ")
-                    if (m[0] == "TAKE" || m[0] == "T") {
-                        n = "T"
-                    }
-                    if (m[0] == "DROP" || m[0] == "D") {
-                        n = "D"
-                    }
-                    if (m[0] == "USE" || m[0] == "U") {
-                        n = "U"
-                    }
+                } else {
+                    m = consoleArg.split(" ")
+
+                    consoleArg = whichAction(m[0])
                     do {
-                        przedmiot++
-                        if (przedmiot == gra.item.length) {
+                        item++
+                        if (item == gra.item.length) {
                             ruch.kom = "This item doesn't exist"
                             ruch.komunikat()
                             break;
                         }
-                    } while (m[1] != gra.item[przedmiot].nazwa && przedmiot <= gra.item.length)
+                    } while (m[1] != gra.item[item].nazwa && item <= gra.item.length)
 
                 }
 
-                switch (n) {
-                    case "V":
+                switch (consoleArg) {
+                    case "V": //info
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
                         v.innerHTML = "NORTH or N, SOUTH or S <br><br> WEST or W, EAST or E <br><br> TAKE (object) or T (object) <br><br> DROP (object) or D (object) <br><br> USE (object) or U (object) <br><br> USE (object) or U (object) <br><br><br> Press any key"
@@ -181,7 +164,7 @@ var ruch = {
                         }, 10)
                         break;
 
-                    case "G":
+                    case "G": //lore
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
                         v.innerHTML = "The  woodcutter lost  his home key... <br><br> The butcher likes fruit... The cooper <br><br> is greedy... Dratewka plans to make a <br><br> poisoned  bait for the dragon...  The <br><br> tavern owner is buying food  from the <br><br> pickers... Making a rag from a bag... <br><br><br> Press any key"
@@ -234,7 +217,7 @@ var ruch = {
 
                     case "E":
                         if (gra.lok[ruch.pion][ruch.poziom].east == 1) {
-                            ruch.poziom++
+
                             ruch.kom = "You are going east..."
                             ruch.komunikat()
                             ruch.ruch()
@@ -267,8 +250,6 @@ var ruch = {
                             ruch.komunikat()
                         }
                         break;
-
-
 
 
                     case "T":
@@ -476,8 +457,70 @@ var ruch = {
                 ruch.casesens = 0
             }
 
-            if (x == 32)
+            if (pressedSpace(keyDownNumber))
                 ruch.casesens = 1
-        }
+        };
+    }
+}
+
+
+function isUp(number) {
+    if (number === 38) return true
+    else false
+}
+
+function isDown(number) {
+    if (number === 40) return true
+    else false
+}
+
+function isLeft(number) {
+    if (number === 37) return true
+    else false
+}
+
+function isRight(number) {
+    if (number === 39) return true
+    else false
+}
+
+function pressedEnter(number) {
+    if (number === 13) return true
+    else false
+}
+
+function pressedSpace(number) {
+    if (number === 32) return true
+    else false
+}
+
+function whichDirection(consoleArg, keyNumber) {
+    if (consoleArg.length === 1)
+        return consoleArg
+
+    if (consoleArg === "NORTH" || isUp(keyNumber)) {
+        return "N"
+    }
+    if (consoleArg === "SOUTH" || isDown(keyNumber)) {
+        return "S"
+    }
+    if (consoleArg === "WEST" || isLeft(keyNumber)) {
+        return "W"
+    }
+    if (consoleArg === "EAST" || isRight(keyNumber)) {
+        return "E"
+    }
+}
+
+function whichAction(command) {
+    if (command.length === 1)
+        return command
+    switch (command) {
+        case "TAKE" :
+            return "T"
+        case "DROP" :
+            return "D"
+        case "USE" :
+            return "U"
     }
 }
