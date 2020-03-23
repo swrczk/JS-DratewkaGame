@@ -140,7 +140,7 @@ var ruch = {
                     case "V": //info
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
-                        v.innerHTML = "NORTH or N, SOUTH or S <br><br> WEST or W, EAST or E <br><br> TAKE (object) or T (object) <br><br> DROP (object) or D (object) <br><br> USE (object) or U (object) <br><br> USE (object) or U (object) <br><br><br> Press any key"
+                        v.innerHTML = INSTRUCTION
                         v = document.getElementById("kons")
                         v.style.visibility = "hidden"
                         v = document.getElementById("kom2")
@@ -167,7 +167,7 @@ var ruch = {
                     case "G": //lore
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
-                        v.innerHTML = "The  woodcutter lost  his home key... <br><br> The butcher likes fruit... The cooper <br><br> is greedy... Dratewka plans to make a <br><br> poisoned  bait for the dragon...  The <br><br> tavern owner is buying food  from the <br><br> pickers... Making a rag from a bag... <br><br><br> Press any key"
+                        v.innerHTML = LORE_INFO
                         v = document.getElementById("kons")
                         v.style.visibility = "hidden"
                         v = document.getElementById("kom2")
