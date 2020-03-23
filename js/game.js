@@ -19,24 +19,24 @@ var gra = {
         document.onkeydown = function (e) {
             var keyCode= e.keyCode
             if(pressedSpace(keyCode) || pressedEnter(keyCode))
-                document.getElementById("intro").remove()
+                document.getElementById("intro")?.remove()
         }
         var img1 = document.createElement("IMG")
         img1.id = "img1"
         intro.appendChild(img1)
         img1.setAttribute("src", "materialy/img/czolowka.jpg")
 
-        var introInterval =setTimeout(function () {
+        setTimeout(function () {
             img1.setAttribute("src", "materialy/img/opis_A.jpg")
         }, 5*1000)
 
-        introInterval =setTimeout(function () {
+        setTimeout(function () {
             img1.setAttribute("src", "materialy/img/opis_B.jpg")
 
         }, 10*1000)
 
-        introInterval =setTimeout(function () {
-            document.getElementById("intro").remove()
+        setTimeout(function () {
+            document.getElementById("intro")?.remove()
 
         }, 15*1000)
     },
@@ -81,9 +81,6 @@ var gra = {
 
 
     },
-    lok: places,
-    przedmioty: reactions,
-    item: items,
     plansza: function () {
         window.onload = function () {
             document.getElementById("kons").focus();
@@ -96,6 +93,7 @@ var gra = {
             if (ruch.casesens == 0) {
                 var x = document.getElementById("kons")
                 x.value = x.value.toUpperCase()
+
                 ruch.kierunki(x)
             }
 

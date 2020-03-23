@@ -31,7 +31,7 @@ var ruch = {
             k = document.getElementById("kw")
             k.style.display = "block"
 
-            var ob = gra.lok[ruch.pion][ruch.poziom]
+            var ob = places[ruch.pion][ruch.poziom]
 
 
             var miejsce = document.getElementById("nagl")
@@ -90,7 +90,7 @@ var ruch = {
                 var see = "You see"
                 for (var i = 0; i < ob.item.length; i++) {
                     if (ob.item[i] != 0) {
-                        see = see + " " + gra.item[ob.item[i] - 9].odmiana
+                        see = see + " " + items[ob.item[i] - 9].odmiana
                     }
 
                     if (ob.item[i + 1] != 0 && (i + 1) != ob.item.length) {
@@ -102,7 +102,7 @@ var ruch = {
             if (ruch.ekwipunek == 0)
                 var carrying = "You are carrying nothing"
             else {
-                var carrying = "You are carrying " + gra.item[ruch.ekwipunek - 9].odmiana
+                var carrying = "You are carrying " + items[ruch.ekwipunek - 9].odmiana
             }
 
             miejsce.innerHTML = output + ". <br><br>" + see + ". <br><br>" + carrying + ". "
@@ -116,7 +116,7 @@ var ruch = {
             var item = 0;
 
             if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
-                var consoleArg = kons.value
+                var consoleArg = kons.value.toUpperCase()
 
                 if (!consoleArg.includes(" ")) {
                     consoleArg = whichDirection(consoleArg, keyDownNumber)
@@ -127,12 +127,12 @@ var ruch = {
                     consoleArg = whichAction(m[0])
                     do {
                         item++
-                        if (item == gra.item.length) {
+                        if (item == items.length) {
                             ruch.kom = "This item doesn't exist"
                             ruch.komunikat()
                             break;
                         }
-                    } while (m[1] != gra.item[item].nazwa && item <= gra.item.length)
+                    } while (m[1] != items[item].nazwa && item <= items.length)
 
                 }
 
@@ -192,7 +192,7 @@ var ruch = {
                         break;
 
                     case "N":
-                        if (gra.lok[ruch.pion][ruch.poziom].north == 1) {
+                        if (places[ruch.pion][ruch.poziom].north == 1) {
                             ruch.pion--
                             ruch.kom = "You are going north..."
                             ruch.komunikat()
@@ -204,7 +204,7 @@ var ruch = {
                         break;
 
                     case "S":
-                        if (gra.lok[ruch.pion][ruch.poziom].south == 1) {
+                        if (places[ruch.pion][ruch.poziom].south == 1) {
                             ruch.pion++
                             ruch.kom = "You are going south..."
                             ruch.komunikat()
@@ -216,7 +216,7 @@ var ruch = {
                         break;
 
                     case "E":
-                        if (gra.lok[ruch.pion][ruch.poziom].east == 1) {
+                        if (places[ruch.pion][ruch.poziom].east == 1) {
 
                             ruch.kom = "You are going east..."
                             ruch.komunikat()
@@ -228,7 +228,7 @@ var ruch = {
                         break;
 
                     case "W":
-                        if (gra.lok[ruch.pion][ruch.poziom].west == 1 && ruch.pion == 3 && ruch.poziom == 1 && ruch.dragon == 0) {
+                        if (places[ruch.pion][ruch.poziom].west == 1 && ruch.pion == 3 && ruch.poziom == 1 && ruch.dragon == 0) {
                             ruch.kom = "You can't go that way... "
                             var miejsce = document.getElementById("kom2")
                             var miejsce2 = document.getElementById("kons")
@@ -240,7 +240,7 @@ var ruch = {
                             }, 2000)
                             break;
                         }
-                        if (gra.lok[ruch.pion][ruch.poziom].west == 1) {
+                        if (places[ruch.pion][ruch.poziom].west == 1) {
                             ruch.poziom--
                             ruch.kom = "You are going west..."
                             ruch.komunikat()
@@ -261,16 +261,16 @@ var ruch = {
                         }
 
 
-                        var tablica = gra.lok[ruch.pion][ruch.poziom].item.indexOf(przedmiot + 9);
+                        var tablica = places[ruch.pion][ruch.poziom].item.indexOf(item + 9);
 
                         if (tablica != -1) {
-                            if (gra.item[przedmiot].flaga == 0) {
+                            if (items[item].flaga == 0) {
                                 ruch.kom = "You can't carry it"
                                 ruch.komunikat()
                             } else {
-                                ruch.ekwipunek = przedmiot + 9
-                                gra.lok[ruch.pion][ruch.poziom].item[tablica] = 0
-                                ruch.kom = "You are taking " + gra.item[przedmiot].odmiana
+                                ruch.ekwipunek = item + 9
+                                places[ruch.pion][ruch.poziom].item[tablica] = 0
+                                ruch.kom = "You are taking " + items[item].odmiana
                                 ruch.komunikat()
                                 ruch.ruch()
                             }
@@ -284,9 +284,9 @@ var ruch = {
 
                     case "D":
                         var ekw_nazw = "";
-                        for (var i = 0; i < gra.item.length; i++) {
+                        for (var i = 0; i < items.length; i++) {
                             if (i == ruch.ekwipunek - 9) {
-                                ekw_nazw = gra.item[i].nazwa
+                                ekw_nazw = items[i].nazwa
                             }
                         }
 
@@ -298,9 +298,9 @@ var ruch = {
 
                         //czy nie ma 3 przedmiotow z flaga1
                         var ok = 0;
-                        for (var i = 0; i < gra.lok[ruch.pion][ruch.poziom].item.length; i++) {
-                            if (gra.lok[ruch.pion][ruch.poziom].item[i] != 0) {
-                                if (gra.item[gra.lok[ruch.pion][ruch.poziom].item[i] - 9].flaga == 1) {
+                        for (var i = 0; i < places[ruch.pion][ruch.poziom].item.length; i++) {
+                            if (places[ruch.pion][ruch.poziom].item[i] != 0) {
+                                if (items[places[ruch.pion][ruch.poziom].item[i] - 9].flaga == 1) {
                                     ok++
                                 }
                             }
@@ -317,12 +317,12 @@ var ruch = {
                             break;
                         }
 
-                        var tablica = gra.lok[ruch.pion][ruch.poziom].item.indexOf(0);
+                        var tablica = places[ruch.pion][ruch.poziom].item.indexOf(0);
                         if (tablica = -1) {
-                            gra.lok[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
+                            places[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
                         } else
-                            gra.lok[ruch.pion][ruch.poziom].item[tablica] = ruch.ekwipunek
-                        ruch.kom = "You are about to drop " + gra.item[ruch.ekwipunek - 9].odmiana
+                            places[ruch.pion][ruch.poziom].item[tablica] = ruch.ekwipunek
+                        ruch.kom = "You are about to drop " + items[ruch.ekwipunek - 9].odmiana
                         ruch.ekwipunek = 0;
                         ruch.komunikat()
                         ruch.ruch()
@@ -336,16 +336,16 @@ var ruch = {
                             ruch.komunikat()
                             break;
                         }
-                        if (gra.item[ruch.ekwipunek - 9].nazwa != m[1]) {
+                        if (items[ruch.ekwipunek - 9].nazwa != m[1]) {
                             ruch.kom = "You aren't carrying anything like that"
                             ruch.komunikat()
                             break;
                         }
 
                         var reakcja;
-                        for (var i = 0; i < gra.przedmioty.length; i++) {
-                            if (ruch.ekwipunek == gra.przedmioty[i].potrzebny)
-                                reakcja = gra.przedmioty[i]
+                        for (var i = 0; i < reactions.length; i++) {
+                            if (ruch.ekwipunek == reactions[i].potrzebny)
+                                reakcja = reactions[i]
                         }
 
                         var miejsce = ruch.pion * 10 + ruch.poziom + 11
@@ -360,7 +360,7 @@ var ruch = {
                             break;
                         }
 
-                        if (przedmiot.flaga == "S") {
+                        if (item.flaga == "S") {
                             if (ruch.skin == 0) {
                                 ruch.kom = "Nothing happened"
                                 ruch.komunikat()
@@ -396,7 +396,7 @@ var ruch = {
 
                         if (reakcja.flaga == "L") {
                             ruch.kamienie++
-                            gra.lok[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
+                            places[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
                             ruch.ekwipunek = 0
                             ruch.komunikat()
 
@@ -404,8 +404,8 @@ var ruch = {
                                 if (reakcja.lokacja == 43) {
                                     ruch.ekwipunek = 37
                                     ruch.kom = "Your fake sheep is full of poison and ready to be eaten by the dragon"
-                                    for (var i = 0; i < gra.lok[ruch.pion][ruch.poziom].item.length; i++) {
-                                        gra.lok[ruch.pion][ruch.poziom].item[i] = 0
+                                    for (var i = 0; i < places[ruch.pion][ruch.poziom].item.length; i++) {
+                                        places[ruch.pion][ruch.poziom].item[i] = 0
                                     }
                                     var miejsce = document.getElementById("kom2")
                                     var miejsce2 = document.getElementById("kons")
@@ -424,8 +424,8 @@ var ruch = {
                         }
                         if (reakcja.flaga == "D") {
                             ruch.dragon++
-                            gra.lok[3][2].tlo = "DS68.bmp"
-                            gra.lok[ruch.pion][ruch.poziom].item[0] = ruch.ekwipunek
+                            places[3][2].tlo = "DS68.bmp"
+                            places[ruch.pion][ruch.poziom].item[0] = ruch.ekwipunek
                             ruch.ekwipunek = 0
                             ruch.kom = reakcja.komunikat[0]
                             var miejsce = document.getElementById("kom2")
