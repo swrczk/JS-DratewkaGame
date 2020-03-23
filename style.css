@@ -19,7 +19,7 @@ img {
     border: 2px solid white;
 }
 
-#poj {
+#contener {
     width: 950px;
     height: 700px;
     padding: 20px;
@@ -28,27 +28,27 @@ img {
     background: rgb(0, 0, 0);
 }
 
-#nagl {
+#locTitle {
     width: 100%;
     height: 50px;
     padding-top: 10px;
     padding-left: 20px;
 }
 
-#obr {
+#locImage {
     width: 512px;
     height: 320px;
     margin: 22px;
 }
 
 
-#kom {
+#gameDescription {
     width: 600px;
     height: 150px;
     padding-left: 20px;
 }
 
-#dane {
+#data {
     display: block;
     float: left;
     width: 612px;
@@ -56,7 +56,7 @@ img {
     padding: 0;
 }
 
-#kompas {
+#compass {
     display: block;
     float: left;
     width: 265px;
@@ -64,7 +64,7 @@ img {
     padding-top: 100px;
 }
 
-#kompas_img {
+#compass_img {
     width: 265px;
     height: 120px;
     border: 0 solid black;
@@ -73,13 +73,13 @@ img {
     left: 0;
 }
 
-#komp_div {
+#compass_div {
     padding: 0;
     margin: 0;
     position: relative;
 }
 
-#kn {
+#compassN {
     position: absolute;
     height: 15px;
     width: 12px;
@@ -88,7 +88,7 @@ img {
     background: black;
 }
 
-#ks {
+#compassS {
     position: absolute;
     height: 13px;
     width: 13px;
@@ -97,7 +97,7 @@ img {
     background: black;
 }
 
-#ke {
+#compassE {
     position: absolute;
     height: 13px;
     width: 14px;
@@ -106,7 +106,7 @@ img {
     background: black;
 }
 
-#kw {
+#compassW {
     position: absolute;
     height: 14px;
     width: 12px;
@@ -115,7 +115,7 @@ img {
     background: black;
 }
 
-#kom2 {
+#comandResponse {
     display: inline-block;
     height: 50px;
     font-size: 20px;

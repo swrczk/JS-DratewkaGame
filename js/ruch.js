@@ -3,15 +3,15 @@ var ruch = {
     poziom: 6,
     casesens: 0,
     ekwipunek: 0,
-    kom: "",
+    gameDescription: "",
     kamienie: 0,
     skin: 0,
     dragon: 0,
     text: "",
     komunikat: function () {
-        var miejsce = document.getElementById("kom2")
+        var miejsce = document.getElementById("comandResponse")
         var miejsce2 = document.getElementById("gameConsole")
-        miejsce.innerHTML = ruch.kom
+        miejsce.innerHTML = ruch.gameDescription
         miejsce2.style.display = "none"
         setTimeout(function () {
             miejsce.innerHTML = "What's now?"
@@ -22,22 +22,22 @@ var ruch = {
     loadData: function () {
         setTimeout(function () {
 
-            var k = document.getElementById("kn")
+            var k = document.getElementById("compassN")
             k.style.display = "block"
-            k = document.getElementById("ks")
+            k = document.getElementById("compassS")
             k.style.display = "block"
-            k = document.getElementById("ke")
+            k = document.getElementById("compassE")
             k.style.display = "block"
-            k = document.getElementById("kw")
+            k = document.getElementById("compassW")
             k.style.display = "block"
 
             var ob = places[ruch.pion][ruch.poziom]
 
 
-            var miejsce = document.getElementById("nagl")
+            var miejsce = document.getElementById("locTitle")
             miejsce.innerHTML = ob.tekst
 
-            miejsce = document.getElementById("obr")
+            miejsce = document.getElementById("locImage")
             miejsce.innerHTML = ""
             tlo = document.createElement("IMG")
             tlo.setAttribute("src", "img/" + ob.tlo)
@@ -46,11 +46,11 @@ var ruch = {
 
             miejsce.style.backgroundColor = ob.kolor
 
-            miejsce = document.getElementById("kom")
+            miejsce = document.getElementById("gameDescription")
             var output = "You can go:"
             if (ob.north != 0) {
                 output = output + " north"
-                document.getElementById("kn").style.display = "none"
+                document.getElementById("compassN").style.display = "none"
             }
 
             if (ob.east != 0) {
@@ -58,7 +58,7 @@ var ruch = {
                     output = output + ","
                 }
                 output = output + " east"
-                document.getElementById("ke").style.display = "none"
+                document.getElementById("compassE").style.display = "none"
             }
 
             if (ob.south != 0) {
@@ -66,7 +66,7 @@ var ruch = {
                     output = output + ","
                 }
                 output = output + " south"
-                document.getElementById("ks").style.display = "none"
+                document.getElementById("compassS").style.display = "none"
             }
 
             if (ob.west != 0) {
@@ -74,7 +74,7 @@ var ruch = {
                     output = output + ","
                 }
                 output = output + " west"
-                document.getElementById("kw").style.display = "none"
+                document.getElementById("compassW").style.display = "none"
             }
 
 
@@ -111,9 +111,9 @@ var ruch = {
     startGame: function () {
         gameConsole.onkeydown = function (e) {
 
-            var keyDownNumber = e.which
-            var m = 0;
-            var item = 0;
+            let keyDownNumber = e.which
+            var command = 0;
+            let item = 0;
 
             if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
                 var consoleArg = gameConsole.value.toUpperCase().trim()
@@ -122,36 +122,36 @@ var ruch = {
                     consoleArg = whichDirection(consoleArg, keyDownNumber)
 
                 } else {
-                    m = consoleArg.split(" ")
+                    command = consoleArg.split(" ")
 
-                    consoleArg = whichAction(m[0])
+                    consoleArg = whichAction(command[0])
                     do {
                         item++
                         if (item == items.length) {
-                            ruch.kom = "This item doesn't exist"
+                            ruch.gameDescription = "This item doesn't exist"
                             ruch.komunikat()
                             break;
                         }
-                    } while (m[1] != items[item].nazwa && item <= items.length)
+                    } while (command[1] != items[item].nazwa && item <= items.length)
 
                 }
 
                 switch (consoleArg) {
                     case "V": //info
-                        ruch.text = document.getElementById("kom").textContent
-                        var v = document.getElementById("kom")
+                        ruch.text = document.getElementById("gameDescription").textContent
+                        var v = document.getElementById("gameDescription")
                         v.innerHTML = INSTRUCTION
                         v = document.getElementById("gameConsole")
                         v.style.visibility = "hidden"
-                        v = document.getElementById("kom2")
+                        v = document.getElementById("comandResponse")
                         v.style.visibility = "hidden"
                         setTimeout(function () {
                             document.body.onkeydown = function () {
-                                var m = document.getElementById("kom2")
+                                var m = document.getElementById("comandResponse")
                                 m.style.visibility = "visible"
                                 m = document.getElementById("gameConsole")
                                 m.style.visibility = "visible"
-                                m = document.getElementById("kom")
+                                m = document.getElementById("gameDescription")
                                 var teskt = ruch.text.split(".")
                                 var output = teskt[0];
                                 for (var i = 1; i < teskt.length; i++) {
@@ -165,20 +165,20 @@ var ruch = {
                         break;
 
                     case "G": //lore
-                        ruch.text = document.getElementById("kom").textContent
-                        var v = document.getElementById("kom")
+                        ruch.text = document.getElementById("gameDescription").textContent
+                        var v = document.getElementById("gameDescription")
                         v.innerHTML = LORE_INFO
                         v = document.getElementById("gameConsole")
                         v.style.visibility = "hidden"
-                        v = document.getElementById("kom2")
+                        v = document.getElementById("comandResponse")
                         v.style.visibility = "hidden"
                         setTimeout(function () {
                             document.body.onkeydown = function () {
-                                var m = document.getElementById("kom2")
+                                var m = document.getElementById("comandResponse")
                                 m.style.visibility = "visible"
                                 m = document.getElementById("gameConsole")
                                 m.style.visibility = "visible"
-                                m = document.getElementById("kom")
+                                m = document.getElementById("gameDescription")
                                 var teskt = ruch.text.split(".")
                                 var output = teskt[0];
                                 for (var i = 1; i < teskt.length; i++) {
@@ -194,11 +194,11 @@ var ruch = {
                     case "N":
                         if (places[ruch.pion][ruch.poziom].north == 1) {
                             ruch.pion--
-                            ruch.kom = "You are going north..."
+                            ruch.gameDescription = "You are going north..."
                             ruch.komunikat()
                             ruch.loadData()
                         } else {
-                            ruch.kom = "You can't go that way"
+                            ruch.gameDescription = "You can't go that way"
                             ruch.komunikat()
                         }
                         break;
@@ -206,11 +206,11 @@ var ruch = {
                     case "S":
                         if (places[ruch.pion][ruch.poziom].south == 1) {
                             ruch.pion++
-                            ruch.kom = "You are going south..."
+                            ruch.gameDescription = "You are going south..."
                             ruch.komunikat()
                             ruch.loadData()
                         } else {
-                            ruch.kom = "You can't go that way"
+                            ruch.gameDescription = "You can't go that way"
                             ruch.komunikat()
                         }
                         break;
@@ -218,35 +218,35 @@ var ruch = {
                     case "E":
                         if (places[ruch.pion][ruch.poziom].east == 1) {
 
-                            ruch.kom = "You are going east..."
+                            ruch.gameDescription = "You are going east..."
                             ruch.komunikat()
                             ruch.loadData()
                         } else {
-                            ruch.kom = "You can't go that way"
+                            ruch.gameDescription = "You can't go that way"
                             ruch.komunikat()
                         }
                         break;
 
                     case "W":
                         if (places[ruch.pion][ruch.poziom].west == 1 && ruch.pion == 3 && ruch.poziom == 1 && ruch.dragon == 0) {
-                            ruch.kom = "You can't go that way... "
-                            var miejsce = document.getElementById("kom2")
+                            ruch.gameDescription = "You can't go that way... "
+                            var miejsce = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.kom
+                            miejsce.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
-                                ruch.kom = " The dragon sleeps in a cave!"
+                                ruch.gameDescription = " The dragon sleeps in a cave!"
                                 ruch.komunikat()
                             }, 2000)
                             break;
                         }
                         if (places[ruch.pion][ruch.poziom].west == 1) {
                             ruch.poziom--
-                            ruch.kom = "You are going west..."
+                            ruch.gameDescription = "You are going west..."
                             ruch.komunikat()
                             ruch.loadData()
                         } else {
-                            ruch.kom = "You can't go that way"
+                            ruch.gameDescription = "You can't go that way"
                             ruch.komunikat()
                         }
                         break;
@@ -255,7 +255,7 @@ var ruch = {
                     case "T":
 
                         if (ruch.ekwipunek != 0) {
-                            ruch.kom = "You are carying something"
+                            ruch.gameDescription = "You are carying something"
                             ruch.komunikat()
                             break;
                         }
@@ -265,17 +265,17 @@ var ruch = {
 
                         if (tablica != -1) {
                             if (items[item].flaga == 0) {
-                                ruch.kom = "You can't carry it"
+                                ruch.gameDescription = "You can't carry it"
                                 ruch.komunikat()
                             } else {
                                 ruch.ekwipunek = item + 9
                                 places[ruch.pion][ruch.poziom].item[tablica] = 0
-                                ruch.kom = "You are taking " + items[item].odmiana
+                                ruch.gameDescription = "You are taking " + items[item].odmiana
                                 ruch.komunikat()
                                 ruch.loadData()
                             }
                         } else {
-                            ruch.kom = "There isn't anything like that here"
+                            ruch.gameDescription = "There isn't anything like that here"
                             ruch.komunikat()
                         }
 
@@ -291,7 +291,7 @@ var ruch = {
                         }
 
                         if (ekw_nazw != m[1]) {
-                            ruch.kom = "You are not carrying it"
+                            ruch.gameDescription = "You are not carrying it"
                             ruch.komunikat()
                             break;
                         }
@@ -307,12 +307,12 @@ var ruch = {
                         }
 
                         if (ruch.ekwipunek == 0) {
-                            ruch.kom = "You are not carrying anything"
+                            ruch.gameDescription = "You are not carrying anything"
                             ruch.komunikat()
                             break;
                         }
                         if (ok == 3) {
-                            ruch.kom = "You can't store any more here"
+                            ruch.gameDescription = "You can't store any more here"
                             ruch.komunikat()
                             break;
                         }
@@ -322,7 +322,7 @@ var ruch = {
                             places[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
                         } else
                             places[ruch.pion][ruch.poziom].item[tablica] = ruch.ekwipunek
-                        ruch.kom = "You are about to drop " + items[ruch.ekwipunek - 9].odmiana
+                        ruch.gameDescription = "You are about to drop " + items[ruch.ekwipunek - 9].odmiana
                         ruch.ekwipunek = 0;
                         ruch.komunikat()
                         ruch.loadData()
@@ -332,12 +332,12 @@ var ruch = {
 
 
                         if (ruch.ekwipunek == 0) {
-                            ruch.kom = "You are not carrying anything"
+                            ruch.gameDescription = "You are not carrying anything"
                             ruch.komunikat()
                             break;
                         }
                         if (items[ruch.ekwipunek - 9].nazwa != m[1]) {
-                            ruch.kom = "You aren't carrying anything like that"
+                            ruch.gameDescription = "You aren't carrying anything like that"
                             ruch.komunikat()
                             break;
                         }
@@ -350,7 +350,7 @@ var ruch = {
 
                         var miejsce = ruch.pion * 10 + ruch.poziom + 11
                         if (reakcja.lokacja != miejsce) {
-                            ruch.kom = "Nothing happened"
+                            ruch.gameDescription = "Nothing happened"
                             ruch.komunikat()
                             break;
                         }
@@ -362,32 +362,32 @@ var ruch = {
 
                         if (item.flaga == "S") {
                             if (ruch.skin == 0) {
-                                ruch.kom = "Nothing happened"
+                                ruch.gameDescription = "Nothing happened"
                                 ruch.komunikat()
                                 break;
                             }
                         }
 
                         if (reakcja.flaga == "N") {
-                            ruch.kom = reakcja.komunikat[0]
-                            var miejsce = document.getElementById("kom2")
+                            ruch.gameDescription = reakcja.komunikat[0]
+                            var miejsce = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.kom
+                            miejsce.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
-                                ruch.kom = reakcja.komunikat[1]
-                                var miejsce = document.getElementById("kom2")
+                                ruch.gameDescription = reakcja.komunikat[1]
+                                var miejsce = document.getElementById("comandResponse")
                                 var miejsce2 = document.getElementById("gameConsole")
-                                miejsce.innerHTML = ruch.kom
+                                miejsce.innerHTML = ruch.gameDescription
                                 miejsce2.style.display = "none"
                             }, 2000)
                             setTimeout(function () {
-                                ruch.kom = reakcja.komunikat[2]
+                                ruch.gameDescription = reakcja.komunikat[2]
                                 ruch.komunikat()
                             }, 4001)
                             setTimeout(function () {
                                 ruch.ekwipunek = reakcja.wynik
-                                ruch.kom = reakcja.komunikat
+                                ruch.gameDescription = reakcja.komunikat
                                 ruch.loadData()
                             }, 6002)
                             break;
@@ -403,13 +403,13 @@ var ruch = {
                             if (ruch.kamienie == 6) {
                                 if (reakcja.lokacja == 43) {
                                     ruch.ekwipunek = 37
-                                    ruch.kom = "Your fake sheep is full of poison and ready to be eaten by the dragon"
+                                    ruch.gameDescription = "Your fake sheep is full of poison and ready to be eaten by the dragon"
                                     for (var i = 0; i < places[ruch.pion][ruch.poziom].item.length; i++) {
                                         places[ruch.pion][ruch.poziom].item[i] = 0
                                     }
-                                    var miejsce = document.getElementById("kom2")
+                                    var miejsce = document.getElementById("comandResponse")
                                     var miejsce2 = document.getElementById("gameConsole")
-                                    miejsce.innerHTML = ruch.kom
+                                    miejsce.innerHTML = ruch.gameDescription
                                     miejsce2.style.display = "none"
                                     setTimeout(function () {
                                         miejsce.innerHTML = "What's now?"
@@ -427,13 +427,13 @@ var ruch = {
                             places[3][2].tlo = "DS68.bmp"
                             places[ruch.pion][ruch.poziom].item[0] = ruch.ekwipunek
                             ruch.ekwipunek = 0
-                            ruch.kom = reakcja.komunikat[0]
-                            var miejsce = document.getElementById("kom2")
+                            ruch.gameDescription = reakcja.komunikat[0]
+                            var miejsce = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.kom
+                            miejsce.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
-                                ruch.kom = reakcja.komunikat[1]
+                                ruch.gameDescription = reakcja.komunikat[1]
                                 ruch.komunikat()
                                 ruch.loadData()
                             }, 2000)
@@ -442,13 +442,13 @@ var ruch = {
                         }
 
 
-                        ruch.kom = reakcja.komunikat
+                        ruch.gameDescription = reakcja.komunikat
                         ruch.komunikat()
                         ruch.loadData()
                         break;
 
                     default:
-                        ruch.kom = "Try another word or V for vocabulary"
+                        ruch.gameDescription = "Try another word or V for vocabulary"
                         ruch.komunikat()
                         break;
                 }
