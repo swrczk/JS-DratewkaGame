@@ -152,7 +152,7 @@ img
 }
 
 
-#d, #end
+#intro, #end
 {
     position: absolute;
     top:0;
@@ -172,7 +172,7 @@ img
     z-index: 200;
 }
 
-#d img, #end img, #end2 img
+#intro img, #end img, #end2 img
 {
     position: absolute;
     top:0;

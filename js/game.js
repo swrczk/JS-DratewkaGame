@@ -1,37 +1,44 @@
 var gra = {
     wstep: function () {
-        var div = document.createElement("DIV")
-        div.id = "d"
-        document.body.appendChild(div)
+        var audio = document.getElementById("audio");
+        //var audio = new Audio('audio/hejnal.mp3');
+        var promise = document.getElementById("audio").play();
 
-
-        var x = document.createElement("AUDIO");
-
-        if (x.canPlayType("audio/mpeg")) {
-            x.setAttribute("src", "materialy/audio/hejnal.mp3");
-        } else {
-            x.setAttribute("src", "materialy/audio/hejnal.ogg");
+        if (promise !== undefined) {
+            promise.then(_ => {
+                audio.play();
+            }).catch(error => {
+                console.log("not working")
+            });
         }
 
-        x.autoplay = true
-        document.body.appendChild(x);
+        var intro = document.createElement("DIV")
+        intro.id = "intro"
+        document.body.appendChild(intro)
 
+        document.onkeydown = function (e) {
+            var keyCode= e.keyCode
+            if(pressedSpace(keyCode) || pressedEnter(keyCode))
+                document.getElementById("intro").remove()
+        }
         var img1 = document.createElement("IMG")
         img1.id = "img1"
-        div.appendChild(img1)
+        intro.appendChild(img1)
         img1.setAttribute("src", "materialy/img/czolowka.jpg")
 
-        setTimeout(function () {
+        var introInterval =setTimeout(function () {
             img1.setAttribute("src", "materialy/img/opis_A.jpg")
-        }, 29000)
+        }, 5*1000)
 
-        setTimeout(function () {
+        introInterval =setTimeout(function () {
             img1.setAttribute("src", "materialy/img/opis_B.jpg")
-        }, 44000)
 
-        setTimeout(function () {
-            document.getElementById("d").remove()
-        }, 59000)
+        }, 10*1000)
+
+        introInterval =setTimeout(function () {
+            document.getElementById("intro").remove()
+
+        }, 15*1000)
     },
     end: function () {
         var div2 = document.createElement("DIV")
@@ -42,9 +49,9 @@ var gra = {
         var y = document.createElement("AUDIO");
 
         if (y.canPlayType("audio/mpeg")) {
-            y.setAttribute("src", "materialy/audio/We_are_Number_One_Music.mp3");
+            y.setAttribute("src", "audio/We_are_Number_One_Music.mp3");
         } else {
-            y.setAttribute("src", "materialy/audio/We_are_Number_One_Music.ogg");
+            y.setAttribute("src", "audio/We_are_Number_One_Music.ogg");
         }
 
         y.autoplay = true
