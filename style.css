@@ -1,80 +1,70 @@
 @font-face {
     font-family: font;
-    src: url("materialy/fonts/PressStart2P.ttf");
+    src: url("fonts/PressStart2P.ttf");
 }
 
-*
-{
-    color:white;
+* {
+    color: white;
     font-family: font;
 }
 
-body
-{
+body {
     margin: 0;
     padding: 0;
 }
 
-img
-{
+img {
     width: 511px;
     height: 319px;
     border: 2px solid white;
 }
 
-#poj
-{
+#poj {
     width: 950px;
     height: 700px;
     padding: 20px;
     overflow: hidden;
     margin: 0;
-    background: rgb(0,0,0);
+    background: rgb(0, 0, 0);
 }
 
-#nagl
-{
+#nagl {
     width: 100%;
     height: 50px;
     padding-top: 10px;
     padding-left: 20px;
 }
 
-#obr
-{
+#obr {
     width: 512px;
     height: 320px;
     margin: 22px;
 }
 
 
-#kom
-{
+#kom {
     width: 600px;
     height: 150px;
     padding-left: 20px;
 }
 
-#dane
-{
-    display:block;
+#dane {
+    display: block;
     float: left;
     width: 612px;
     margin: 0;
     padding: 0;
 }
 
-#kompas
-{
-    display:block;
+#kompas {
+    display: block;
     float: left;
     width: 265px;
     height: 454px;
     padding-top: 100px;
 }
 
-#kompas_img
-{
+#kompas_img {
     width: 265px;
     height: 120px;
     border: 0 solid black;
@@ -83,102 +73,92 @@ img
     left: 0;
 }
 
-#komp_div
-{
+#komp_div {
     padding: 0;
     margin: 0;
     position: relative;
 }
 
-#kn
-{
+#kn {
     position: absolute;
     height: 15px;
     width: 12px;
     left: 119px;
-    top:0;
+    top: 0;
     background: black;
 }
 
-#ks
-{
+#ks {
     position: absolute;
     height: 13px;
     width: 13px;
     left: 125px;
-    top:105px;
+    top: 105px;
     background: black;
 }
 
-#ke
-{
+#ke {
     position: absolute;
     height: 13px;
     width: 14px;
     left: 237px;
-    top:35px;
+    top: 35px;
     background: black;
 }
 
-#kw
-{
+#kw {
     position: absolute;
     height: 14px;
     width: 12px;
     left: 16px;
-    top:35px;
+    top: 35px;
     background: black;
 }
 
-#kom2
-{
+#kom2 {
     display: inline-block;
     height: 50px;
     font-size: 20px;
-    border: 2px solid rgb(0,0,0);
-    background: rgb(0,0,0);
+    border: 2px solid rgb(0, 0, 0);
+    background: rgb(0, 0, 0);
 }
 
-#kons
-{
+#kons {
     display: inline-block;
     width: 512px;
     height: 50px;
     border: 2px solid white;
     font-size: 20px;
     margin: 20px;
-    background: rgb(0,0,0);
+    background: rgb(0, 0, 0);
     outline: none;
 }
 
 
-#d, #end
-{
+#intro, #end {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 950px;
     height: 700px;
     z-index: 300;
 }
 
-#end2
-{
+#end2 {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 950px;
     height: 700px;
     z-index: 200;
 }
 
-#d img, #end img, #end2 img
-{
+#intro img, #end img, #end2 img {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 990px;
     height: 740px;
     z-index: 300;
-    
+
 }
