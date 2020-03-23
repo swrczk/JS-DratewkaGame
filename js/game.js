@@ -1,8 +1,8 @@
-var gra = {
-    wstep: function () {
-        var audio = document.getElementById("audio");
+var game = {
+    gameIntro: function () {
+        let audio = document.getElementById("audio");
         //var audio = new Audio('audio/hejnal.mp3');
-        var promise = document.getElementById("audio").play();
+        let promise = document.getElementById("audio").play();
 
         if (promise !== undefined) {
             promise.then(_ => {
@@ -12,91 +12,95 @@ var gra = {
             });
         }
 
-        var intro = document.createElement("DIV")
+        let intro = document.createElement("DIV")
         intro.id = "intro"
         document.body.appendChild(intro)
 
-        document.onkeydown = function (e) {
-            var keyCode= e.keyCode
-            if(pressedSpace(keyCode) || pressedEnter(keyCode))
+        document.onkeydown = function skipIntro(e) {
+            let keyCode = e.keyCode
+            if (pressedSpace(keyCode) || pressedEnter(keyCode)) {
                 document.getElementById("intro")?.remove()
+            }
         }
-        var img1 = document.createElement("IMG")
-        img1.id = "img1"
-        intro.appendChild(img1)
-        img1.setAttribute("src", "materialy/img/czolowka.jpg")
+
+        let introImage = document.createElement("IMG")
+        introImage.id = "introImage"
+        intro.appendChild(introImage)
+        introImage.setAttribute("src", "img/czolowka.jpg")
 
         setTimeout(function () {
-            img1.setAttribute("src", "materialy/img/opis_A.jpg")
-        }, 5*1000)
+            introImage.setAttribute("src", "img/opis_A.jpg")
 
-        setTimeout(function () {
-            img1.setAttribute("src", "materialy/img/opis_B.jpg")
 
-        }, 10*1000)
+            setTimeout(function () {
+                introImage.setAttribute("src", "img/opis_B.jpg")
 
-        setTimeout(function () {
-            document.getElementById("intro")?.remove()
 
-        }, 15*1000)
+                setTimeout(function () {
+                    document.getElementById("intro")?.remove()
+
+                }, 5 * 1000)
+
+            }, 5 * 1000)
+
+        }, 5 * 1000)
+
+
     },
     end: function () {
-        var div2 = document.createElement("DIV")
-        div2.id = "end"
-        document.body.appendChild(div2)
+        let endDiv = document.createElement("DIV");
+        endDiv.id = "end"
+        document.body.appendChild(endDiv)
 
 
-        var y = document.createElement("AUDIO");
+        let audio = document.createElement("AUDIO");
 
-        if (y.canPlayType("audio/mpeg")) {
-            y.setAttribute("src", "audio/We_are_Number_One_Music.mp3");
+        if (audio.canPlayType("audio/mpeg")) {
+            audio.setAttribute("src", "audio/We_are_Number_One_Music.mp3");
         } else {
-            y.setAttribute("src", "audio/We_are_Number_One_Music.ogg");
+            audio.setAttribute("src", "audio/We_are_Number_One_Music.ogg");
         }
 
-        y.autoplay = true
-        y.loop = true
-        document.body.appendChild(y);
+        audio.autoplay = true
+        audio.loop = true
+        document.body.appendChild(audio);
 
-        var div3 = document.createElement("DIV")
-        div3.id = "end2"
-        document.body.appendChild(div3)
+        let endContainer = document.createElement("DIV")
+        endContainer.id = "endContainer"
+        document.body.appendChild(endContainer)
 
 
-        var img2 = document.createElement("IMG")
-        img2.id = "img2"
-        div3.appendChild(img2)
-        img2.setAttribute("src", "materialy/img/git_gif.gif")
+        let endBackgroundImg = document.createElement("IMG")
+        endBackgroundImg.id = "endBackgroundImg"
+        endContainer.appendChild(endBackgroundImg)
+        endBackgroundImg.setAttribute("src", "img/git_gif.gif")
 
-        var img1 = document.createElement("IMG")
-        img1.id = "img1"
-        div2.appendChild(img1)
-        img1.setAttribute("src", "materialy/img/giphy.gif")
+        let endExplosionImg = document.createElement("IMG")
+        endExplosionImg.id = "endExplosionImg"
+        endDiv.appendChild(endExplosionImg)
+        endExplosionImg.setAttribute("src", "img/giphy.gif")
 
 
         setTimeout(function () {
-            img1.setAttribute("src", "materialy/img/gif.gif")
-        }, 500)
-
+            endExplosionImg.setAttribute("src", "img/gif.gif")
+        }, 0.5 * 1000)
 
 
     },
-    plansza: function () {
+    start: function () {
         window.onload = function () {
-            document.getElementById("kons").focus();
+            document.getElementById("gameConsole").focus();
+
         }
 
         //----------konsola
-        var kons = document.getElementById("kons")
-        kons.onblur = "this.focus()"
-        kons.onkeyup = function () {
+        var gameConsole = document.getElementById("gameConsole")
+        gameConsole.onblur = "this.focus()"
+        gameConsole.onkeyup = function () {
             if (ruch.casesens == 0) {
-                var x = document.getElementById("kons")
-                x.value = x.value.toUpperCase()
-
-                ruch.kierunki(x)
+                gameConsole.value = gameConsole.value.toUpperCase()
+                ruch.startGame(gameConsole)
             }
-
         }
 
     }

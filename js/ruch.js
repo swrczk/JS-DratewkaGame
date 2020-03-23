@@ -10,16 +10,16 @@ var ruch = {
     text: "",
     komunikat: function () {
         var miejsce = document.getElementById("kom2")
-        var miejsce2 = document.getElementById("kons")
+        var miejsce2 = document.getElementById("gameConsole")
         miejsce.innerHTML = ruch.kom
         miejsce2.style.display = "none"
         setTimeout(function () {
             miejsce.innerHTML = "What's now?"
             miejsce2.style.display = "inline"
-            document.getElementById("kons").focus()
+            document.getElementById("gameConsole").focus()
         }, 2000); //00
     },
-    ruch: function () {
+    loadData: function () {
         setTimeout(function () {
 
             var k = document.getElementById("kn")
@@ -40,7 +40,7 @@ var ruch = {
             miejsce = document.getElementById("obr")
             miejsce.innerHTML = ""
             tlo = document.createElement("IMG")
-            tlo.setAttribute("src", "materialy/img/" + ob.tlo)
+            tlo.setAttribute("src", "img/" + ob.tlo)
             miejsce.appendChild(tlo)
 
 
@@ -108,15 +108,15 @@ var ruch = {
             miejsce.innerHTML = output + ". <br><br>" + see + ". <br><br>" + carrying + ". "
         }, 2000) //00   
     },
-    kierunki: function () {
-        kons.onkeydown = function (e) {
+    startGame: function () {
+        gameConsole.onkeydown = function (e) {
 
             var keyDownNumber = e.which
             var m = 0;
             var item = 0;
 
             if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
-                var consoleArg = kons.value.toUpperCase()
+                var consoleArg = gameConsole.value.toUpperCase().trim()
 
                 if (!consoleArg.includes(" ")) {
                     consoleArg = whichDirection(consoleArg, keyDownNumber)
@@ -141,7 +141,7 @@ var ruch = {
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
                         v.innerHTML = INSTRUCTION
-                        v = document.getElementById("kons")
+                        v = document.getElementById("gameConsole")
                         v.style.visibility = "hidden"
                         v = document.getElementById("kom2")
                         v.style.visibility = "hidden"
@@ -149,7 +149,7 @@ var ruch = {
                             document.body.onkeydown = function () {
                                 var m = document.getElementById("kom2")
                                 m.style.visibility = "visible"
-                                m = document.getElementById("kons")
+                                m = document.getElementById("gameConsole")
                                 m.style.visibility = "visible"
                                 m = document.getElementById("kom")
                                 var teskt = ruch.text.split(".")
@@ -159,7 +159,7 @@ var ruch = {
                                 }
                                 m.innerHTML = output
                                 document.body.onkeydown = ""
-                                document.getElementById("kons").focus()
+                                document.getElementById("gameConsole").focus()
                             }
                         }, 10)
                         break;
@@ -168,7 +168,7 @@ var ruch = {
                         ruch.text = document.getElementById("kom").textContent
                         var v = document.getElementById("kom")
                         v.innerHTML = LORE_INFO
-                        v = document.getElementById("kons")
+                        v = document.getElementById("gameConsole")
                         v.style.visibility = "hidden"
                         v = document.getElementById("kom2")
                         v.style.visibility = "hidden"
@@ -176,7 +176,7 @@ var ruch = {
                             document.body.onkeydown = function () {
                                 var m = document.getElementById("kom2")
                                 m.style.visibility = "visible"
-                                m = document.getElementById("kons")
+                                m = document.getElementById("gameConsole")
                                 m.style.visibility = "visible"
                                 m = document.getElementById("kom")
                                 var teskt = ruch.text.split(".")
@@ -186,7 +186,7 @@ var ruch = {
                                 }
                                 m.innerHTML = output
                                 document.body.onkeydown = ""
-                                document.getElementById("kons").focus()
+                                document.getElementById("gameConsole").focus()
                             }
                         }, 10)
                         break;
@@ -196,7 +196,7 @@ var ruch = {
                             ruch.pion--
                             ruch.kom = "You are going north..."
                             ruch.komunikat()
-                            ruch.ruch()
+                            ruch.loadData()
                         } else {
                             ruch.kom = "You can't go that way"
                             ruch.komunikat()
@@ -208,7 +208,7 @@ var ruch = {
                             ruch.pion++
                             ruch.kom = "You are going south..."
                             ruch.komunikat()
-                            ruch.ruch()
+                            ruch.loadData()
                         } else {
                             ruch.kom = "You can't go that way"
                             ruch.komunikat()
@@ -220,7 +220,7 @@ var ruch = {
 
                             ruch.kom = "You are going east..."
                             ruch.komunikat()
-                            ruch.ruch()
+                            ruch.loadData()
                         } else {
                             ruch.kom = "You can't go that way"
                             ruch.komunikat()
@@ -231,7 +231,7 @@ var ruch = {
                         if (places[ruch.pion][ruch.poziom].west == 1 && ruch.pion == 3 && ruch.poziom == 1 && ruch.dragon == 0) {
                             ruch.kom = "You can't go that way... "
                             var miejsce = document.getElementById("kom2")
-                            var miejsce2 = document.getElementById("kons")
+                            var miejsce2 = document.getElementById("gameConsole")
                             miejsce.innerHTML = ruch.kom
                             miejsce2.style.display = "none"
                             setTimeout(function () {
@@ -244,7 +244,7 @@ var ruch = {
                             ruch.poziom--
                             ruch.kom = "You are going west..."
                             ruch.komunikat()
-                            ruch.ruch()
+                            ruch.loadData()
                         } else {
                             ruch.kom = "You can't go that way"
                             ruch.komunikat()
@@ -272,7 +272,7 @@ var ruch = {
                                 places[ruch.pion][ruch.poziom].item[tablica] = 0
                                 ruch.kom = "You are taking " + items[item].odmiana
                                 ruch.komunikat()
-                                ruch.ruch()
+                                ruch.loadData()
                             }
                         } else {
                             ruch.kom = "There isn't anything like that here"
@@ -325,7 +325,7 @@ var ruch = {
                         ruch.kom = "You are about to drop " + items[ruch.ekwipunek - 9].odmiana
                         ruch.ekwipunek = 0;
                         ruch.komunikat()
-                        ruch.ruch()
+                        ruch.loadData()
                         break;
 
                     case "U":
@@ -356,7 +356,7 @@ var ruch = {
                         }
 
                         if (reakcja.flaga == "K") {
-                            gra.end()
+                            game.end()
                             break;
                         }
 
@@ -371,13 +371,13 @@ var ruch = {
                         if (reakcja.flaga == "N") {
                             ruch.kom = reakcja.komunikat[0]
                             var miejsce = document.getElementById("kom2")
-                            var miejsce2 = document.getElementById("kons")
+                            var miejsce2 = document.getElementById("gameConsole")
                             miejsce.innerHTML = ruch.kom
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 ruch.kom = reakcja.komunikat[1]
                                 var miejsce = document.getElementById("kom2")
-                                var miejsce2 = document.getElementById("kons")
+                                var miejsce2 = document.getElementById("gameConsole")
                                 miejsce.innerHTML = ruch.kom
                                 miejsce2.style.display = "none"
                             }, 2000)
@@ -388,7 +388,7 @@ var ruch = {
                             setTimeout(function () {
                                 ruch.ekwipunek = reakcja.wynik
                                 ruch.kom = reakcja.komunikat
-                                ruch.ruch()
+                                ruch.loadData()
                             }, 6002)
                             break;
                         }
@@ -408,15 +408,15 @@ var ruch = {
                                         places[ruch.pion][ruch.poziom].item[i] = 0
                                     }
                                     var miejsce = document.getElementById("kom2")
-                                    var miejsce2 = document.getElementById("kons")
+                                    var miejsce2 = document.getElementById("gameConsole")
                                     miejsce.innerHTML = ruch.kom
                                     miejsce2.style.display = "none"
                                     setTimeout(function () {
                                         miejsce.innerHTML = "What's now?"
                                         miejsce2.style.display = "inline"
-                                        document.getElementById("kons").focus()
+                                        document.getElementById("gameConsole").focus()
                                     }, 3500); //00
-                                    ruch.ruch()
+                                    ruch.loadData()
                                     break;
 
                                 }
@@ -429,13 +429,13 @@ var ruch = {
                             ruch.ekwipunek = 0
                             ruch.kom = reakcja.komunikat[0]
                             var miejsce = document.getElementById("kom2")
-                            var miejsce2 = document.getElementById("kons")
+                            var miejsce2 = document.getElementById("gameConsole")
                             miejsce.innerHTML = ruch.kom
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 ruch.kom = reakcja.komunikat[1]
                                 ruch.komunikat()
-                                ruch.ruch()
+                                ruch.loadData()
                             }, 2000)
                             ruch.skin++
                             break;
@@ -444,7 +444,7 @@ var ruch = {
 
                         ruch.kom = reakcja.komunikat
                         ruch.komunikat()
-                        ruch.ruch()
+                        ruch.loadData()
                         break;
 
                     default:
@@ -453,7 +453,7 @@ var ruch = {
                         break;
                 }
 
-                kons.value = ""
+                gameConsole.value = ""
                 ruch.casesens = 0
             }
 

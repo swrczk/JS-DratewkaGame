@@ -16,7 +16,7 @@ function _pole() {
     //     case(direction){
     //
     //     }
-    //     if (gra.lok[ruch.pion][ruch.poziom].north == 1) {
+    //     if (game.lok[ruch.pion][ruch.poziom].north == 1) {
     //         ruch.pion--
     //         ruch.kom = "You are going north..."
     //         ruch.komunikat()

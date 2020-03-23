@@ -12,9 +12,9 @@
     <script src="js/ruch.js"></script>
     <script>
         window.onload = function () {
-            gra.wstep()
-            gra.plansza()
-            ruch.ruch()
+            game.gameIntro()
+            game.start()
+            ruch.loadData()
         }
 
     </script>
@@ -30,7 +30,7 @@
     </div>
     <div id="kompas">
         <div id="komp_div">
-            <img src="materialy/img/kompas.bmp" id="kompas_img">
+            <img src="img/kompas.bmp" id="kompas_img">
             <div id="kn" style="display: block;"></div>
             <div id="ks" style="display: block;"></div>
             <div id="ke" style="display: block;"></div>
@@ -39,7 +39,7 @@
 
     </div>
     <div id="kom2">What's now?</div>
-    <input autofocus="autofocus" id="kons">
+    <input autofocus="autofocus" id="gameConsole">
 </div>
 <div id="something">
     G - commands <br>
