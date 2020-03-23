@@ -71,7 +71,7 @@ var logic = {
                 availableItemsNames = "You see"
                 for (let i = 0; i < currentLoc.locItem.length; i++) {
                     if (currentLoc.locItem[i] != 0) {
-                        availableItemsNames += " " + items[currentLoc.locItem[i] - 9].fullName
+                        availableItemsNames += " " + items[currentLoc.locItem[i] - ITEM_SHIFT].fullName
                     }
 
                     if (currentLoc.locItem[i + 1] != 0 && (i + 1) != currentLoc.locItem.length) {
@@ -81,17 +81,19 @@ var logic = {
             }
             let carrying;
             if (logic.equipment == 0)
-                carrying= "You are carrying nothing"
+                carrying = "You are carrying nothing"
             else {
-                carrying = "You are carrying " + items[logic.equipment - 9].fullName
+                carrying = "You are carrying " + items[logic.equipment - ITEM_SHIFT].fullName
             }
 
             currentLocData.innerHTML = locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". "
-        },  ACTION_TIME)
+        }, ACTION_TIME)
     },
     startGame: function () {
         gameConsole.onkeydown = function (e) {
 
+
+            let currentLoc = places[logic.pion][logic.poziom]
             let keyDownNumber = e.which
             let command = 0;
             let item = 0;
@@ -117,63 +119,48 @@ var logic = {
 
                 }
 
+                let gameText = document.getElementById("gameText")
+                let commandResponse = document.getElementById("commandResponse")
+                let itemID;
+
+                function putPrevText() {
+
+                    setTimeout(function () {
+                        document.body.onkeydown = function () {
+
+                            commandResponse.style.visibility = "visible"
+                            gameConsole.style.visibility = "visible"
+                            let prevText = logic.text.split(".")
+                            let locDescription = prevText[0];
+                            for (let i = 1; i < prevText.length; i++) {
+                                locDescription += ".<br><br>" + prevText[i]
+                            }
+                            gameText.innerHTML = locDescription
+                            document.body.onkeydown = ""
+                            document.getElementById("gameConsole").focus()
+                        }
+                    }, SAVE_TIME)
+                }
+
                 switch (consoleArg) {
                     case "V": //info
                         logic.text = document.getElementById("gameText").textContent
-                        let gameText = document.getElementById("gameText")
                         gameText.innerHTML = INSTRUCTION
-                        let gameConsole = document.getElementById("gameConsole")
                         gameConsole.style.visibility = "hidden"
-                        let commandResponse = document.getElementById("commandResponse")
                         commandResponse.style.visibility = "hidden"
-
-                        setTimeout(function () {
-                            document.body.onkeydown = function () {
-                                commandResponse.style.visibility = "visible"
-                                gameConsole = document.getElementById("gameConsole")
-                                gameConsole.style.visibility = "visible"
-                                gameText = document.getElementById("gameText")
-                                let prevText = logic.text.split(".")
-                                let locDescription = prevText[0];
-                                for (let i = 1; i < prevText.length; i++) {
-                                    locDescription += ".<br><br>" + prevText[i]
-                                }
-                                gameText.innerHTML = locDescription
-                                document.body.onkeydown = ""
-                                document.getElementById("gameConsole").focus()
-                            }
-                        }, SAVE_TIME)
+                        putPrevText()
                         break;
 
                     case "G": //lore
                         logic.text = document.getElementById("gameText").textContent
-                        let v = document.getElementById("gameText")
-                        v.innerHTML = LORE_INFO
-                        v = document.getElementById("gameConsole")
-                        v.style.visibility = "hidden"
-                        v = document.getElementById("commandResponse")
-                        v.style.visibility = "hidden"
-                        setTimeout(function () {
-                            document.body.onkeydown = function () {
-                                var m = document.getElementById("commandResponse")
-                                m.style.visibility = "visible"
-                                m = document.getElementById("gameConsole")
-                                m.style.visibility = "visible"
-                                m = document.getElementById("gameText")
-                                var teskt = logic.text.split(".")
-                                var locDescription = teskt[0];
-                                for (var i = 1; i < teskt.length; i++) {
-                                    locDescription += ".<br><br>" + teskt[i]
-                                }
-                                m.innerHTML = locDescription
-                                document.body.onkeydown = ""
-                                document.getElementById("gameConsole").focus()
-                            }
-                        }, 10)
+                        gameText.innerHTML = LORE_INFO
+                        gameConsole.style.visibility = "hidden"
+                        commandResponse.style.visibility = "hidden"
+                        putPrevText()
                         break;
 
                     case "N":
-                        if (places[logic.pion][logic.poziom].north == 1) {
+                        if (currentLoc.isNorth()) {
                             logic.pion--
                             logic.gameDescription = "You are going north..."
                             logic.action()
@@ -185,7 +172,7 @@ var logic = {
                         break;
 
                     case "S":
-                        if (places[logic.pion][logic.poziom].south == 1) {
+                        if (currentLoc.south == 1) {
                             logic.pion++
                             logic.gameDescription = "You are going south..."
                             logic.action()
@@ -197,7 +184,7 @@ var logic = {
                         break;
 
                     case "E":
-                        if (places[logic.pion][logic.poziom].east == 1) {
+                        if (currentLoc.isEast()) {
 
                             logic.gameDescription = "You are going east..."
                             logic.poziom++
@@ -210,19 +197,17 @@ var logic = {
                         break;
 
                     case "W":
-                        if (places[logic.pion][logic.poziom].west == 1 && logic.pion == 3 && logic.poziom == 1 && logic.dragon == 0) {
+                        if (currentLoc.isWest() && logic.pion == 3 && logic.poziom == 1 && logic.dragon == 0) {
                             logic.gameDescription = "You can't go that way... "
-                            var currentLocData = document.getElementById("commandResponse")
-                            var miejsce2 = document.getElementById("gameConsole")
-                            currentLocData.innerHTML = logic.gameDescription
-                            miejsce2.style.display = "none"
+                            commandResponse.innerHTML = logic.gameDescription
+                            gameConsole.style.display = "none"
                             setTimeout(function () {
                                 logic.gameDescription = " The dragon sleeps in a cave!"
                                 logic.action()
                             }, 2000)
                             break;
                         }
-                        if (places[logic.pion][logic.poziom].west == 1) {
+                        if (currentLoc.isWest()) {
                             logic.poziom--
                             logic.gameDescription = "You are going west..."
                             logic.action()
@@ -235,23 +220,21 @@ var logic = {
 
 
                     case "T":
-
                         if (logic.equipment != 0) {
                             logic.gameDescription = "You are carying something"
                             logic.action()
                             break;
                         }
+                        
+                        itemID = currentLoc.locItem.indexOf(item + ITEM_SHIFT);
 
-
-                        var tablica = places[logic.pion][logic.poziom].locItem.indexOf(item + 9);
-
-                        if (tablica != -1) {
+                        if (itemID != -1) {
                             if (items[item].specialMark == 0) {
                                 logic.gameDescription = "You can't carry it"
                                 logic.action()
                             } else {
-                                logic.equipment = item + 9
-                                places[logic.pion][logic.poziom].locItem[tablica] = 0
+                                logic.equipment = item + ITEM_SHIFT
+                                currentLoc.locItem[itemID] = 0
                                 logic.gameDescription = "You are taking " + items[item].fullName
                                 logic.action()
                                 logic.loadData()
@@ -260,30 +243,28 @@ var logic = {
                             logic.gameDescription = "There isn't anything like that here"
                             logic.action()
                         }
-
-
                         break;
 
                     case "D":
-                        var ekw_nazw = "";
-                        for (var i = 0; i < items.length; i++) {
-                            if (i == logic.equipment - 9) {
-                                ekw_nazw = items[i].name
+                        let playerItem = "";
+                        for (let i = 0; i < items.length; i++) {
+                            if (i == logic.equipment - ITEM_SHIFT) {
+                                playerItem = items[i].name
                             }
                         }
 
-                        if (ekw_nazw != m[1]) {
+                        if (playerItem != command[1]) {
                             logic.gameDescription = "You are not carrying it"
                             logic.action()
                             break;
                         }
 
                         //czy nie ma 3 przedmiotow z flaga1
-                        var ok = 0;
-                        for (var i = 0; i < places[logic.pion][logic.poziom].locItem.length; i++) {
-                            if (places[logic.pion][logic.poziom].locItem[i] != 0) {
-                                if (items[places[logic.pion][logic.poziom].locItem[i] - 9].specialMark == 1) {
-                                    ok++
+                        let specialItemLimit = 0;
+                        for (let i = 0; i < currentLoc.locItem.length; i++) {
+                            if (currentLoc.locItem[i] != 0) {
+                                if (items[currentLoc.locItem[i] - ITEM_SHIFT].specialMark == 1) {
+                                    specialItemLimit++
                                 }
                             }
                         }
@@ -293,51 +274,49 @@ var logic = {
                             logic.action()
                             break;
                         }
-                        if (ok == 3) {
+                        if (specialItemLimit >= SPECIAL_ITEM_LIMIT) {
                             logic.gameDescription = "You can't store any more here"
                             logic.action()
                             break;
                         }
 
-                        var tablica = places[logic.pion][logic.poziom].locItem.indexOf(0);
-                        if (tablica = -1) {
-                            places[logic.pion][logic.poziom].locItem.push(logic.equipment)
+                        itemID = currentLoc.locItem.indexOf(0);
+                        if (itemID = -1) {
+                            currentLoc.locItem.push(logic.equipment)
                         } else
-                            places[logic.pion][logic.poziom].locItem[tablica] = logic.equipment
-                        logic.gameDescription = "You are about to drop " + items[logic.equipment - 9].fullName
+                            currentLoc.locItem[itemID] = logic.equipment
+                        logic.gameDescription = "You are about to drop " + items[logic.equipment - ITEM_SHIFT].fullName
                         logic.equipment = 0;
                         logic.action()
                         logic.loadData()
                         break;
 
                     case "U":
-
-
                         if (logic.equipment == 0) {
                             logic.gameDescription = "You are not carrying anything"
                             logic.action()
                             break;
                         }
-                        if (items[logic.equipment - 9].name != m[1]) {
+                        if (items[logic.equipment - ITEM_SHIFT].name != command[1]) {
                             logic.gameDescription = "You aren't carrying anything like that"
                             logic.action()
                             break;
                         }
 
-                        var reakcja;
+                        let effect;
                         for (var i = 0; i < reactions.length; i++) {
                             if (logic.equipment == reactions[i].needed)
-                                reakcja = reactions[i]
+                                effect = reactions[i]
                         }
 
-                        var currentLocData = logic.pion * 10 + logic.poziom + 11
-                        if (reakcja.location != currentLocData) {
+                        let currentLocData = logic.pion * 10 + logic.poziom + 11
+                        if (effect.location != currentLocData) {
                             logic.gameDescription = "Nothing happened"
                             logic.action()
                             break;
                         }
 
-                        if (reakcja.specialMark == "K") {
+                        if (effect.specialMark == "K") {
                             game.end()
                             break;
                         }
@@ -350,52 +329,46 @@ var logic = {
                             }
                         }
 
-                        if (reakcja.specialMark == "N") {
-                            logic.gameDescription = reakcja.komunikat[0]
-                            var currentLocData = document.getElementById("commandResponse")
-                            var miejsce2 = document.getElementById("gameConsole")
-                            currentLocData.innerHTML = logic.gameDescription
-                            miejsce2.style.display = "none"
+                        if (effect.specialMark == "N") {
+                            logic.gameDescription = effect.komunikat[0]
+                            commandResponse.innerHTML = logic.gameDescription
+                            gameConsole.style.display = "none"
                             setTimeout(function () {
-                                logic.gameDescription = reakcja.komunikat[1]
-                                var currentLocData = document.getElementById("commandResponse")
-                                var miejsce2 = document.getElementById("gameConsole")
-                                currentLocData.innerHTML = logic.gameDescription
-                                miejsce2.style.display = "none"
+                                logic.gameDescription = effect.komunikat[1]
+                                commandResponse.innerHTML = logic.gameDescription
+                                gameConsole.style.display = "none"
                             }, 2000)
                             setTimeout(function () {
-                                logic.gameDescription = reakcja.komunikat[2]
+                                logic.gameDescription = effect.komunikat[2]
                                 logic.action()
                             }, 4001)
                             setTimeout(function () {
-                                logic.equipment = reakcja.result
-                                logic.gameDescription = reakcja.komunikat
+                                logic.equipment = effect.result
+                                logic.gameDescription = effect.komunikat
                                 logic.loadData()
                             }, 6002)
                             break;
                         }
-                        logic.equipment = reakcja.result
+                        logic.equipment = effect.result
 
-                        if (reakcja.specialMark == "L") {
+                        if (effect.specialMark == "L") {
                             logic.kamienie++
-                            places[logic.pion][logic.poziom].locItem.push(logic.equipment)
+                            currentLoc.locItem.push(logic.equipment)
                             logic.equipment = 0
                             logic.action()
 
                             if (logic.kamienie == 6) {
-                                if (reakcja.location == 43) {
+                                if (effect.location == 43) {
                                     logic.equipment = 37
                                     logic.gameDescription = "Your fake sheep is full of poison and ready to be eaten by the dragon"
-                                    for (var i = 0; i < places[logic.pion][logic.poziom].locItem.length; i++) {
-                                        places[logic.pion][logic.poziom].locItem[i] = 0
+                                    for (let i = 0; i < currentLoc.locItem.length; i++) {
+                                        currentLoc.locItem[i] = 0
                                     }
-                                    var currentLocData = document.getElementById("commandResponse")
-                                    var miejsce2 = document.getElementById("gameConsole")
-                                    currentLocData.innerHTML = logic.gameDescription
-                                    miejsce2.style.display = "none"
+                                    commandResponse.innerHTML = logic.gameDescription
+                                    gameConsole.style.display = "none"
                                     setTimeout(function () {
-                                        currentLocData.innerHTML = "What's now?"
-                                        miejsce2.style.display = "inline"
+                                        commandResponse.innerHTML = "What's now?"
+                                        gameConsole.style.display = "inline"
                                         document.getElementById("gameConsole").focus()
                                     }, 3500); //00
                                     logic.loadData()
@@ -404,18 +377,16 @@ var logic = {
                                 }
                             }
                         }
-                        if (reakcja.specialMark == "D") {
+                        if (effect.specialMark == "D") {
                             logic.dragon++
                             places[3][2].locImg = "DS68.bmp"
-                            places[logic.pion][logic.poziom].locItem[0] = logic.equipment
+                            currentLoc.locItem[0] = logic.equipment
                             logic.equipment = 0
-                            logic.gameDescription = reakcja.komunikat[0]
-                            var currentLocData = document.getElementById("commandResponse")
-                            var miejsce2 = document.getElementById("gameConsole")
-                            currentLocData.innerHTML = logic.gameDescription
-                            miejsce2.style.display = "none"
+                            logic.gameDescription = effect.komunikat[0]
+                            commandResponse.innerHTML = logic.gameDescription
+                            gameConsole.style.display = "none"
                             setTimeout(function () {
-                                logic.gameDescription = reakcja.komunikat[1]
+                                logic.gameDescription = effect.komunikat[1]
                                 logic.action()
                                 logic.loadData()
                             }, 2000)
@@ -424,7 +395,7 @@ var logic = {
                         }
 
 
-                        logic.gameDescription = reakcja.komunikat
+                        logic.gameDescription = effect.komunikat
                         logic.action()
                         logic.loadData()
                         break;
@@ -507,14 +478,14 @@ function whichAction(command) {
     }
 }
 
-function setCompassDefault(){
+function setCompassDefault() {
     document.getElementById("compassN").style.display = "block"
     document.getElementById("compassS").style.display = "block"
     document.getElementById("compassE").style.display = "block"
     document.getElementById("compassW").style.display = "block"
 }
 
-function setCurrentLocImg(currentLoc){
+function setCurrentLocImg(currentLoc) {
 
     let currentLocData = document.getElementById("locTitle")
     currentLocData.innerHTML = currentLoc.locTitle
