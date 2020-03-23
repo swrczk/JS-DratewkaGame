@@ -8,24 +8,23 @@ function _localization() {
     this.west = arguments[6]
     this.item = arguments[7]
 
-    //----------
 
-    // this.dirs = [(this.north,ruch.pion--,"north"),(this.south,ruch.pion--,"south"),(this.west,ruch.poziom--,"west"),(this.east,ruch.poziom++,"east")]
-    //
-    // this.go= function(direction){
-    //     case(direction){
-    //
-    //     }
-    //     if (game.lok[ruch.pion][ruch.poziom].north == 1) {
-    //         ruch.pion--
-    //         ruch.kom = "You are going north..."
-    //         ruch.komunikat()
-    //         ruch.ruch()
-    //     } else {
-    //         ruch.kom = "You can't go that way"
-    //         ruch.komunikat()
-    //     }
-    // }
+    this.isNorth=function(){
+        if(this.north!=0) return true
+        else return false
+    }
+    this.isSouth=function(){
+        if(this.south!=0) return true
+        else return false
+    }
+    this.isEast=function(){
+        if(this.east!=0) return true
+        else return false
+    }
+    this.isWest=function(){
+        if(this.west!=0) return true
+        else return false
+    }
 }
 
 function _reaction() {

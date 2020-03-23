@@ -57,9 +57,9 @@ var game = {
         var gameConsole = document.getElementById("gameConsole")
         gameConsole.onblur = "this.focus()"
         gameConsole.onkeyup = function () {
-            if (ruch.casesens == 0) {
+            if (logic.casesens == 0) {
                 gameConsole.value = gameConsole.value.toUpperCase()
-                ruch.startGame(gameConsole)
+                logic.startGame(gameConsole)
             }
         }
 
