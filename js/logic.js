@@ -2,7 +2,7 @@ var logic = {
     pion: 3,
     poziom: 6,
     casesens: 0,
-    ekwipunek: 0,
+    equipment: 0,
     gameDescription: "",
     kamienie: 0,
     skin: 0,
@@ -58,35 +58,36 @@ var logic = {
             }
 
 
-            var pos_ekw = 0;
-            for (var i = 0; i < currentLoc.item.length; i++) {
-                if (currentLoc.item[i] != 0) {
-                    pos_ekw++
+            let availableItems = 0;
+            for (let i = 0; i < currentLoc.locItem.length; i++) {
+                if (currentLoc.locItem[i] != 0) {
+                    availableItems++
                 }
             }
-            if (pos_ekw == 0) {
-                var see = "You see nothing"
+            let availableItemsNames;
+            if (availableItems == 0) {
+                availableItemsNames = "You see nothing"
             } else {
-                var see = "You see"
-                for (var i = 0; i < currentLoc.item.length; i++) {
-                    if (currentLoc.item[i] != 0) {
-                        see = see + " " + items[currentLoc.item[i] - 9].fullName
+                availableItemsNames = "You see"
+                for (let i = 0; i < currentLoc.locItem.length; i++) {
+                    if (currentLoc.locItem[i] != 0) {
+                        availableItemsNames += " " + items[currentLoc.locItem[i] - 9].fullName
                     }
 
-                    if (currentLoc.item[i + 1] != 0 && (i + 1) != currentLoc.item.length) {
-                        see = see + ","
+                    if (currentLoc.locItem[i + 1] != 0 && (i + 1) != currentLoc.locItem.length) {
+                        availableItemsNames += ","
                     }
                 }
             }
-
-            if (logic.ekwipunek == 0)
-                var carrying = "You are carrying nothing"
+            let carrying;
+            if (logic.equipment == 0)
+                carrying= "You are carrying nothing"
             else {
-                var carrying = "You are carrying " + items[logic.ekwipunek - 9].fullName
+                carrying = "You are carrying " + items[logic.equipment - 9].fullName
             }
 
-            currentLocData.innerHTML = locDescription + ". <br><br>" + see + ". <br><br>" + carrying + ". "
-        }, 2000) //00   
+            currentLocData.innerHTML = locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". "
+        },  ACTION_TIME)
     },
     startGame: function () {
         gameConsole.onkeydown = function (e) {
@@ -96,7 +97,7 @@ var logic = {
             let item = 0;
 
             if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
-                var consoleArg = gameConsole.value.toUpperCase().trim()
+                let consoleArg = gameConsole.value.toUpperCase().trim()
 
                 if (!consoleArg.includes(" ")) {
                     consoleArg = whichDirection(consoleArg, keyDownNumber)
@@ -234,22 +235,22 @@ var logic = {
 
                     case "T":
 
-                        if (logic.ekwipunek != 0) {
+                        if (logic.equipment != 0) {
                             logic.gameDescription = "You are carying something"
                             logic.action()
                             break;
                         }
 
 
-                        var tablica = places[logic.pion][logic.poziom].item.indexOf(item + 9);
+                        var tablica = places[logic.pion][logic.poziom].locItem.indexOf(item + 9);
 
                         if (tablica != -1) {
                             if (items[item].specialMark == 0) {
                                 logic.gameDescription = "You can't carry it"
                                 logic.action()
                             } else {
-                                logic.ekwipunek = item + 9
-                                places[logic.pion][logic.poziom].item[tablica] = 0
+                                logic.equipment = item + 9
+                                places[logic.pion][logic.poziom].locItem[tablica] = 0
                                 logic.gameDescription = "You are taking " + items[item].fullName
                                 logic.action()
                                 logic.loadData()
@@ -265,7 +266,7 @@ var logic = {
                     case "D":
                         var ekw_nazw = "";
                         for (var i = 0; i < items.length; i++) {
-                            if (i == logic.ekwipunek - 9) {
+                            if (i == logic.equipment - 9) {
                                 ekw_nazw = items[i].name
                             }
                         }
@@ -278,15 +279,15 @@ var logic = {
 
                         //czy nie ma 3 przedmiotow z flaga1
                         var ok = 0;
-                        for (var i = 0; i < places[logic.pion][logic.poziom].item.length; i++) {
-                            if (places[logic.pion][logic.poziom].item[i] != 0) {
-                                if (items[places[logic.pion][logic.poziom].item[i] - 9].specialMark == 1) {
+                        for (var i = 0; i < places[logic.pion][logic.poziom].locItem.length; i++) {
+                            if (places[logic.pion][logic.poziom].locItem[i] != 0) {
+                                if (items[places[logic.pion][logic.poziom].locItem[i] - 9].specialMark == 1) {
                                     ok++
                                 }
                             }
                         }
 
-                        if (logic.ekwipunek == 0) {
+                        if (logic.equipment == 0) {
                             logic.gameDescription = "You are not carrying anything"
                             logic.action()
                             break;
@@ -297,13 +298,13 @@ var logic = {
                             break;
                         }
 
-                        var tablica = places[logic.pion][logic.poziom].item.indexOf(0);
+                        var tablica = places[logic.pion][logic.poziom].locItem.indexOf(0);
                         if (tablica = -1) {
-                            places[logic.pion][logic.poziom].item.push(logic.ekwipunek)
+                            places[logic.pion][logic.poziom].locItem.push(logic.equipment)
                         } else
-                            places[logic.pion][logic.poziom].item[tablica] = logic.ekwipunek
-                        logic.gameDescription = "You are about to drop " + items[logic.ekwipunek - 9].fullName
-                        logic.ekwipunek = 0;
+                            places[logic.pion][logic.poziom].locItem[tablica] = logic.equipment
+                        logic.gameDescription = "You are about to drop " + items[logic.equipment - 9].fullName
+                        logic.equipment = 0;
                         logic.action()
                         logic.loadData()
                         break;
@@ -311,12 +312,12 @@ var logic = {
                     case "U":
 
 
-                        if (logic.ekwipunek == 0) {
+                        if (logic.equipment == 0) {
                             logic.gameDescription = "You are not carrying anything"
                             logic.action()
                             break;
                         }
-                        if (items[logic.ekwipunek - 9].name != m[1]) {
+                        if (items[logic.equipment - 9].name != m[1]) {
                             logic.gameDescription = "You aren't carrying anything like that"
                             logic.action()
                             break;
@@ -324,7 +325,7 @@ var logic = {
 
                         var reakcja;
                         for (var i = 0; i < reactions.length; i++) {
-                            if (logic.ekwipunek == reactions[i].needed)
+                            if (logic.equipment == reactions[i].needed)
                                 reakcja = reactions[i]
                         }
 
@@ -366,26 +367,26 @@ var logic = {
                                 logic.action()
                             }, 4001)
                             setTimeout(function () {
-                                logic.ekwipunek = reakcja.result
+                                logic.equipment = reakcja.result
                                 logic.gameDescription = reakcja.komunikat
                                 logic.loadData()
                             }, 6002)
                             break;
                         }
-                        logic.ekwipunek = reakcja.result
+                        logic.equipment = reakcja.result
 
                         if (reakcja.specialMark == "L") {
                             logic.kamienie++
-                            places[logic.pion][logic.poziom].item.push(logic.ekwipunek)
-                            logic.ekwipunek = 0
+                            places[logic.pion][logic.poziom].locItem.push(logic.equipment)
+                            logic.equipment = 0
                             logic.action()
 
                             if (logic.kamienie == 6) {
                                 if (reakcja.location == 43) {
-                                    logic.ekwipunek = 37
+                                    logic.equipment = 37
                                     logic.gameDescription = "Your fake sheep is full of poison and ready to be eaten by the dragon"
-                                    for (var i = 0; i < places[logic.pion][logic.poziom].item.length; i++) {
-                                        places[logic.pion][logic.poziom].item[i] = 0
+                                    for (var i = 0; i < places[logic.pion][logic.poziom].locItem.length; i++) {
+                                        places[logic.pion][logic.poziom].locItem[i] = 0
                                     }
                                     var currentLocData = document.getElementById("comandResponse")
                                     var miejsce2 = document.getElementById("gameConsole")
@@ -405,8 +406,8 @@ var logic = {
                         if (reakcja.specialMark == "D") {
                             logic.dragon++
                             places[3][2].locImg = "DS68.bmp"
-                            places[logic.pion][logic.poziom].item[0] = logic.ekwipunek
-                            logic.ekwipunek = 0
+                            places[logic.pion][logic.poziom].locItem[0] = logic.equipment
+                            logic.equipment = 0
                             logic.gameDescription = reakcja.komunikat[0]
                             var currentLocData = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")

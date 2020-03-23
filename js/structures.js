@@ -6,23 +6,27 @@ function _localization() {
     this.east = arguments[4]
     this.south = arguments[5]
     this.west = arguments[6]
-    this.item = arguments[7]
+    this.locItem = arguments[7]
 
 
-    this.isNorth=function(){
-        if(this.north!=0) return true
+    this.isNorth = function () {
+        if (this.north != 0) return true
         else return false
     }
-    this.isSouth=function(){
-        if(this.south!=0) return true
+    this.isSouth = function () {
+        if (this.south != 0) return true
         else return false
     }
-    this.isEast=function(){
-        if(this.east!=0) return true
+    this.isEast = function () {
+        if (this.east != 0) return true
         else return false
     }
-    this.isWest=function(){
-        if(this.west!=0) return true
+    this.isWest = function () {
+        if (this.west != 0) return true
+        else return false
+    }
+    this.isLocItem = function () {
+        if (this.locItem != 0) return true
         else return false
     }
 }
