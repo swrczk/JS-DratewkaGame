@@ -9,68 +9,62 @@ var ruch = {
     dragon: 0,
     text: "",
     komunikat: function () {
-        var miejsce = document.getElementById("comandResponse")
-        var miejsce2 = document.getElementById("gameConsole")
-        miejsce.innerHTML = ruch.gameDescription
-        miejsce2.style.display = "none"
+        let comandResponse = document.getElementById("comandResponse")
+        let gameConsole = document.getElementById("gameConsole")
+        comandResponse.innerHTML = ruch.gameDescription
+        gameConsole.style.display = "none"
         setTimeout(function () {
-            miejsce.innerHTML = "What's now?"
-            miejsce2.style.display = "inline"
+            comandResponse.innerHTML = "What's now?"
+            gameConsole.style.display = "inline"
             document.getElementById("gameConsole").focus()
         }, 2000); //00
     },
     loadData: function () {
         setTimeout(function () {
 
-            var k = document.getElementById("compassN")
-            k.style.display = "block"
-            k = document.getElementById("compassS")
-            k.style.display = "block"
-            k = document.getElementById("compassE")
-            k.style.display = "block"
-            k = document.getElementById("compassW")
-            k.style.display = "block"
+            setCompassDefault()
 
-            var ob = places[ruch.pion][ruch.poziom]
+            let currentLoc = places[ruch.pion][ruch.poziom]
 
 
-            var miejsce = document.getElementById("locTitle")
-            miejsce.innerHTML = ob.tekst
+            let currentLocData = document.getElementById("locTitle")
+            currentLocData.innerHTML = currentLoc.locTitle
 
-            miejsce = document.getElementById("locImage")
-            miejsce.innerHTML = ""
-            tlo = document.createElement("IMG")
-            tlo.setAttribute("src", "img/" + ob.tlo)
-            miejsce.appendChild(tlo)
+            currentLocData = document.getElementById("locImage")
+            currentLocData.innerHTML = ""
+
+            let currentLocImg = document.createElement("IMG")
+            currentLocImg.setAttribute("src", "img/" + currentLoc.locImg)
+            currentLocData.appendChild(currentLocImg)
 
 
-            miejsce.style.backgroundColor = ob.kolor
+            currentLocData.style.backgroundColor = currentLoc.locColor
 
-            miejsce = document.getElementById("gameDescription")
+            currentLocData = document.getElementById("gameDescription")
             var output = "You can go:"
-            if (ob.north != 0) {
+            if (currentLoc.north != 0) {
                 output = output + " north"
                 document.getElementById("compassN").style.display = "none"
             }
 
-            if (ob.east != 0) {
-                if (ob.north != 0) {
+            if (currentLoc.east != 0) {
+                if (currentLoc.north != 0) {
                     output = output + ","
                 }
                 output = output + " east"
                 document.getElementById("compassE").style.display = "none"
             }
 
-            if (ob.south != 0) {
-                if (ob.north != 0 || ob.east != 0) {
+            if (currentLoc.south != 0) {
+                if (currentLoc.north != 0 || currentLoc.east != 0) {
                     output = output + ","
                 }
                 output = output + " south"
                 document.getElementById("compassS").style.display = "none"
             }
 
-            if (ob.west != 0) {
-                if (ob.north != 0 || ob.east != 0 || ob.south != 0) {
+            if (currentLoc.west != 0) {
+                if (currentLoc.north != 0 || currentLoc.east != 0 || currentLoc.south != 0) {
                     output = output + ","
                 }
                 output = output + " west"
@@ -79,8 +73,8 @@ var ruch = {
 
 
             var pos_ekw = 0;
-            for (var i = 0; i < ob.item.length; i++) {
-                if (ob.item[i] != 0) {
+            for (var i = 0; i < currentLoc.item.length; i++) {
+                if (currentLoc.item[i] != 0) {
                     pos_ekw++
                 }
             }
@@ -88,12 +82,12 @@ var ruch = {
                 var see = "You see nothing"
             } else {
                 var see = "You see"
-                for (var i = 0; i < ob.item.length; i++) {
-                    if (ob.item[i] != 0) {
-                        see = see + " " + items[ob.item[i] - 9].odmiana
+                for (var i = 0; i < currentLoc.item.length; i++) {
+                    if (currentLoc.item[i] != 0) {
+                        see = see + " " + items[currentLoc.item[i] - 9].fullName
                     }
 
-                    if (ob.item[i + 1] != 0 && (i + 1) != ob.item.length) {
+                    if (currentLoc.item[i + 1] != 0 && (i + 1) != currentLoc.item.length) {
                         see = see + ","
                     }
                 }
@@ -102,10 +96,10 @@ var ruch = {
             if (ruch.ekwipunek == 0)
                 var carrying = "You are carrying nothing"
             else {
-                var carrying = "You are carrying " + items[ruch.ekwipunek - 9].odmiana
+                var carrying = "You are carrying " + items[ruch.ekwipunek - 9].fullName
             }
 
-            miejsce.innerHTML = output + ". <br><br>" + see + ". <br><br>" + carrying + ". "
+            currentLocData.innerHTML = output + ". <br><br>" + see + ". <br><br>" + carrying + ". "
         }, 2000) //00   
     },
     startGame: function () {
@@ -132,7 +126,7 @@ var ruch = {
                             ruch.komunikat()
                             break;
                         }
-                    } while (command[1] != items[item].nazwa && item <= items.length)
+                    } while (command[1] != items[item].name && item <= items.length)
 
                 }
 
@@ -230,9 +224,9 @@ var ruch = {
                     case "W":
                         if (places[ruch.pion][ruch.poziom].west == 1 && ruch.pion == 3 && ruch.poziom == 1 && ruch.dragon == 0) {
                             ruch.gameDescription = "You can't go that way... "
-                            var miejsce = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.gameDescription
+                            currentLocData.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 ruch.gameDescription = " The dragon sleeps in a cave!"
@@ -264,13 +258,13 @@ var ruch = {
                         var tablica = places[ruch.pion][ruch.poziom].item.indexOf(item + 9);
 
                         if (tablica != -1) {
-                            if (items[item].flaga == 0) {
+                            if (items[item].specialMark == 0) {
                                 ruch.gameDescription = "You can't carry it"
                                 ruch.komunikat()
                             } else {
                                 ruch.ekwipunek = item + 9
                                 places[ruch.pion][ruch.poziom].item[tablica] = 0
-                                ruch.gameDescription = "You are taking " + items[item].odmiana
+                                ruch.gameDescription = "You are taking " + items[item].fullName
                                 ruch.komunikat()
                                 ruch.loadData()
                             }
@@ -286,7 +280,7 @@ var ruch = {
                         var ekw_nazw = "";
                         for (var i = 0; i < items.length; i++) {
                             if (i == ruch.ekwipunek - 9) {
-                                ekw_nazw = items[i].nazwa
+                                ekw_nazw = items[i].name
                             }
                         }
 
@@ -300,7 +294,7 @@ var ruch = {
                         var ok = 0;
                         for (var i = 0; i < places[ruch.pion][ruch.poziom].item.length; i++) {
                             if (places[ruch.pion][ruch.poziom].item[i] != 0) {
-                                if (items[places[ruch.pion][ruch.poziom].item[i] - 9].flaga == 1) {
+                                if (items[places[ruch.pion][ruch.poziom].item[i] - 9].specialMark == 1) {
                                     ok++
                                 }
                             }
@@ -322,7 +316,7 @@ var ruch = {
                             places[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
                         } else
                             places[ruch.pion][ruch.poziom].item[tablica] = ruch.ekwipunek
-                        ruch.gameDescription = "You are about to drop " + items[ruch.ekwipunek - 9].odmiana
+                        ruch.gameDescription = "You are about to drop " + items[ruch.ekwipunek - 9].fullName
                         ruch.ekwipunek = 0;
                         ruch.komunikat()
                         ruch.loadData()
@@ -336,7 +330,7 @@ var ruch = {
                             ruch.komunikat()
                             break;
                         }
-                        if (items[ruch.ekwipunek - 9].nazwa != m[1]) {
+                        if (items[ruch.ekwipunek - 9].name != m[1]) {
                             ruch.gameDescription = "You aren't carrying anything like that"
                             ruch.komunikat()
                             break;
@@ -344,23 +338,23 @@ var ruch = {
 
                         var reakcja;
                         for (var i = 0; i < reactions.length; i++) {
-                            if (ruch.ekwipunek == reactions[i].potrzebny)
+                            if (ruch.ekwipunek == reactions[i].needed)
                                 reakcja = reactions[i]
                         }
 
-                        var miejsce = ruch.pion * 10 + ruch.poziom + 11
-                        if (reakcja.lokacja != miejsce) {
+                        var currentLocData = ruch.pion * 10 + ruch.poziom + 11
+                        if (reakcja.location != currentLocData) {
                             ruch.gameDescription = "Nothing happened"
                             ruch.komunikat()
                             break;
                         }
 
-                        if (reakcja.flaga == "K") {
+                        if (reakcja.specialMark == "K") {
                             game.end()
                             break;
                         }
 
-                        if (item.flaga == "S") {
+                        if (item.specialMark == "S") {
                             if (ruch.skin == 0) {
                                 ruch.gameDescription = "Nothing happened"
                                 ruch.komunikat()
@@ -368,17 +362,17 @@ var ruch = {
                             }
                         }
 
-                        if (reakcja.flaga == "N") {
+                        if (reakcja.specialMark == "N") {
                             ruch.gameDescription = reakcja.komunikat[0]
-                            var miejsce = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.gameDescription
+                            currentLocData.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 ruch.gameDescription = reakcja.komunikat[1]
-                                var miejsce = document.getElementById("comandResponse")
+                                var currentLocData = document.getElementById("comandResponse")
                                 var miejsce2 = document.getElementById("gameConsole")
-                                miejsce.innerHTML = ruch.gameDescription
+                                currentLocData.innerHTML = ruch.gameDescription
                                 miejsce2.style.display = "none"
                             }, 2000)
                             setTimeout(function () {
@@ -386,33 +380,33 @@ var ruch = {
                                 ruch.komunikat()
                             }, 4001)
                             setTimeout(function () {
-                                ruch.ekwipunek = reakcja.wynik
+                                ruch.ekwipunek = reakcja.result
                                 ruch.gameDescription = reakcja.komunikat
                                 ruch.loadData()
                             }, 6002)
                             break;
                         }
-                        ruch.ekwipunek = reakcja.wynik
+                        ruch.ekwipunek = reakcja.result
 
-                        if (reakcja.flaga == "L") {
+                        if (reakcja.specialMark == "L") {
                             ruch.kamienie++
                             places[ruch.pion][ruch.poziom].item.push(ruch.ekwipunek)
                             ruch.ekwipunek = 0
                             ruch.komunikat()
 
                             if (ruch.kamienie == 6) {
-                                if (reakcja.lokacja == 43) {
+                                if (reakcja.location == 43) {
                                     ruch.ekwipunek = 37
                                     ruch.gameDescription = "Your fake sheep is full of poison and ready to be eaten by the dragon"
                                     for (var i = 0; i < places[ruch.pion][ruch.poziom].item.length; i++) {
                                         places[ruch.pion][ruch.poziom].item[i] = 0
                                     }
-                                    var miejsce = document.getElementById("comandResponse")
+                                    var currentLocData = document.getElementById("comandResponse")
                                     var miejsce2 = document.getElementById("gameConsole")
-                                    miejsce.innerHTML = ruch.gameDescription
+                                    currentLocData.innerHTML = ruch.gameDescription
                                     miejsce2.style.display = "none"
                                     setTimeout(function () {
-                                        miejsce.innerHTML = "What's now?"
+                                        currentLocData.innerHTML = "What's now?"
                                         miejsce2.style.display = "inline"
                                         document.getElementById("gameConsole").focus()
                                     }, 3500); //00
@@ -422,15 +416,15 @@ var ruch = {
                                 }
                             }
                         }
-                        if (reakcja.flaga == "D") {
+                        if (reakcja.specialMark == "D") {
                             ruch.dragon++
-                            places[3][2].tlo = "DS68.bmp"
+                            places[3][2].locImg = "DS68.bmp"
                             places[ruch.pion][ruch.poziom].item[0] = ruch.ekwipunek
                             ruch.ekwipunek = 0
                             ruch.gameDescription = reakcja.komunikat[0]
-                            var miejsce = document.getElementById("comandResponse")
+                            var currentLocData = document.getElementById("comandResponse")
                             var miejsce2 = document.getElementById("gameConsole")
-                            miejsce.innerHTML = ruch.gameDescription
+                            currentLocData.innerHTML = ruch.gameDescription
                             miejsce2.style.display = "none"
                             setTimeout(function () {
                                 ruch.gameDescription = reakcja.komunikat[1]
@@ -523,4 +517,11 @@ function whichAction(command) {
         case "USE" :
             return "U"
     }
+}
+
+function setCompassDefault(){
+    document.getElementById("compassN").style.display = "block"
+    document.getElementById("compassS").style.display = "block"
+    document.getElementById("compassE").style.display = "block"
+    document.getElementById("compassW").style.display = "block"
 }

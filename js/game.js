@@ -8,7 +8,7 @@ var game = {
             promise.then(_ => {
                 audio.play();
             }).catch(error => {
-                console.log("not working")
+                console.log("music is not working")
             });
         }
 
@@ -45,6 +45,23 @@ var game = {
 
         }, 5 * 1000)
 
+
+    },
+    start: function () {
+        window.onload = function () {
+            document.getElementById("gameConsole").focus();
+
+        }
+
+        //----------konsola
+        var gameConsole = document.getElementById("gameConsole")
+        gameConsole.onblur = "this.focus()"
+        gameConsole.onkeyup = function () {
+            if (ruch.casesens == 0) {
+                gameConsole.value = gameConsole.value.toUpperCase()
+                ruch.startGame(gameConsole)
+            }
+        }
 
     },
     end: function () {
@@ -85,23 +102,6 @@ var game = {
             endExplosionImg.setAttribute("src", "img/gif.gif")
         }, 0.5 * 1000)
 
-
-    },
-    start: function () {
-        window.onload = function () {
-            document.getElementById("gameConsole").focus();
-
-        }
-
-        //----------konsola
-        var gameConsole = document.getElementById("gameConsole")
-        gameConsole.onblur = "this.focus()"
-        gameConsole.onkeyup = function () {
-            if (ruch.casesens == 0) {
-                gameConsole.value = gameConsole.value.toUpperCase()
-                ruch.startGame(gameConsole)
-            }
-        }
 
     }
 }
