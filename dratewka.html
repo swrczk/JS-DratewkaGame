@@ -2,24 +2,47 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Dratewka</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css"/>
     <script src="js/szablony.js"></script>
     <script src="js/data.js"></script>
     <script src="js/game.js"></script>
     <script src="js/ruch.js"></script>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             //gra.wstep()
             gra.plansza()
             ruch.ruch()
         }
 
     </script>
+    <link rel="shortcut icon" type="image/png" href="/moje/boots.png"/>
 </head>
 
 <body>
+<div id="poj">
+    <div id="nagl"> </div>
+    <div id="dane">
+        <div id="obr" > </div>
+        <div id="kom"> </div>
+    </div>
+    <div id="kompas">
+        <div id="komp_div">
+            <img src="materialy/img/kompas.bmp" id="kompas_img">
+            <div id="kn" style="display: block;"></div>
+            <div id="ks" style="display: block;"></div>
+            <div id="ke" style="display: block;"></div>
+            <div id="kw" style="display: block;"></div>
+        </div>
+
+    </div>
+    <div id="kom2">What's now?</div>
+    <input autofocus="autofocus" id="kons">
+</div>
+<div id="something">
+    G - commands <br>
+</div>
 </body>
 
 </html>

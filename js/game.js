@@ -81,67 +81,10 @@ var gra = {
         window.onload = function () {
             document.getElementById("kons").focus();
         }
-        //----------pojemnik
-        var poj = document.createElement("DIV")
-        poj.id = "poj"
-
-        //----------opis lokalizacji
-        var nagl = document.createElement("DIV")
-        nagl.id = "nagl"
-
-        //----------obrazek lokalizacji
-        var obr = document.createElement("DIV")
-        obr.id = "obr"
-
-        //----------miejsce na tekst od gry
-        var kom = document.createElement("DIV")
-        kom.id = "kom"
-
-
-        //----------obrazek i komentarz
-        var dane = document.createElement("DIV")
-        dane.id = "dane"
-
-
-        //----------div na kompas
-        var kompas = document.createElement("DIV")
-        kompas.id = "kompas"
-
-        var kompas_img = document.createElement("IMG")
-        kompas_img.setAttribute("src", "materialy/img/kompas.bmp")
-        kompas_img.id = "kompas_img"
-
-        //----------zasłaniacze na kompasie
-
-        var komp_div = document.createElement("DIV")
-        komp_div.id = "komp_div"
-        var kn = document.createElement("DIV")
-        kn.id = "kn"
-        var ks = document.createElement("DIV")
-        ks.id = "ks"
-        var ke = document.createElement("DIV")
-        ke.id = "ke"
-        var kw = document.createElement("DIV")
-        kw.id = "kw"
-        komp_div.appendChild(kompas_img)
-        komp_div.appendChild(kn)
-        komp_div.appendChild(ks)
-        komp_div.appendChild(ke)
-        komp_div.appendChild(kw)
-
-
-
-        //----------what's now
-        var kom2 = document.createElement("DIV")
-        kom2.id = "kom2"
-        kom2.innerHTML = "What's now?"
-
 
         //----------konsola
-        var kons = document.createElement("INPUT")
-        kons.setAttribute("autofocus", "autofocus")
+        var kons = document.getElementById("kons")
         kons.onblur = "this.focus()"
-        kons.id = "kons"
         kons.onkeyup = function () {
             if (ruch.casesens == 0) {
                 var x = document.getElementById("kons")
@@ -150,17 +93,6 @@ var gra = {
             }
 
         }
-
-
-        poj.appendChild(nagl)
-        dane.appendChild(obr)
-        dane.appendChild(kom)
-        poj.appendChild(dane)
-        kompas.appendChild(komp_div)
-        poj.appendChild(kompas)
-        poj.appendChild(kom2)
-        poj.appendChild(kons)
-        document.body.appendChild(poj)
 
     }
 }
