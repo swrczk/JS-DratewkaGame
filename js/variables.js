@@ -2,6 +2,8 @@ LORE_INFO = "The  woodcutter lost  his home key... <br><br> The butcher likes fr
 
 INSTRUCTION="NORTH or N, SOUTH or S <br><br> WEST or W, EAST or E <br><br> TAKE (object) or T (object) <br><br> DROP (object) or D (object) <br><br> USE (object) or U (object) <br><br> USE (object) or U (object) <br><br><br> Press any key"
 
+POISON_SHEEP="Your fake sheep is full of poison and ready to be eaten by the dragon"
+
 ACTION_TIME= 2*1000
 SAVE_TIME=10
 ITEM_SHIFT=9

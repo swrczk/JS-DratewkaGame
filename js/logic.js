@@ -360,7 +360,7 @@ var logic = {
                             if (logic.kamienie == 6) {
                                 if (effect.location == 43) {
                                     logic.equipment = 37
-                                    logic.gameDescription = "Your fake sheep is full of poison and ready to be eaten by the dragon"
+                                    logic.gameDescription = POISON_SHEEP
                                     for (let i = 0; i < currentLoc.locItem.length; i++) {
                                         currentLoc.locItem[i] = 0
                                     }
