@@ -1,10 +1,10 @@
 var logic = {
-    pion: 3,
-    poziom: 6,
+    column: 3,
+    row: 6,
     casesens: 0,
     equipment: 0,
     gameDescription: "",
-    kamienie: 0,
+    collectedStones: 0,
     skin: 0,
     dragon: 0,
     text: "",
@@ -24,7 +24,7 @@ var logic = {
 
             setCompassDefault()
 
-            let currentLoc = places[logic.pion][logic.poziom]
+            let currentLoc = places[logic.column][logic.row]
 
             setCurrentLocImg(currentLoc)
 
@@ -93,7 +93,7 @@ var logic = {
         gameConsole.onkeydown = function (e) {
 
 
-            let currentLoc = places[logic.pion][logic.poziom]
+            let currentLoc = places[logic.column][logic.row]
             let keyDownNumber = e.which
             let command = 0;
             let item = 0;
@@ -161,7 +161,7 @@ var logic = {
 
                     case "N":
                         if (currentLoc.isNorth()) {
-                            logic.pion--
+                            logic.column--
                             logic.gameDescription = "You are going north..."
                             logic.action()
                             logic.loadData()
@@ -173,7 +173,7 @@ var logic = {
 
                     case "S":
                         if (currentLoc.south == 1) {
-                            logic.pion++
+                            logic.column++
                             logic.gameDescription = "You are going south..."
                             logic.action()
                             logic.loadData()
@@ -187,7 +187,7 @@ var logic = {
                         if (currentLoc.isEast()) {
 
                             logic.gameDescription = "You are going east..."
-                            logic.poziom++
+                            logic.row++
                             logic.action()
                             logic.loadData()
                         } else {
@@ -197,7 +197,7 @@ var logic = {
                         break;
 
                     case "W":
-                        if (currentLoc.isWest() && logic.pion == 3 && logic.poziom == 1 && logic.dragon == 0) {
+                        if (currentLoc.isWest() && logic.column == 3 && logic.row == 1 && logic.dragon == 0) {
                             logic.gameDescription = "You can't go that way... "
                             commandResponse.innerHTML = logic.gameDescription
                             gameConsole.style.display = "none"
@@ -208,7 +208,7 @@ var logic = {
                             break;
                         }
                         if (currentLoc.isWest()) {
-                            logic.poziom--
+                            logic.row--
                             logic.gameDescription = "You are going west..."
                             logic.action()
                             logic.loadData()
@@ -309,7 +309,7 @@ var logic = {
                                 effect = reactions[i]
                         }
 
-                        let currentLocData = logic.pion * 10 + logic.poziom + 11
+                        let currentLocData = logic.column * 10 + logic.row + 11
                         if (effect.location != currentLocData) {
                             logic.gameDescription = "Nothing happened"
                             logic.action()
@@ -330,21 +330,21 @@ var logic = {
                         }
 
                         if (effect.specialMark == "N") {
-                            logic.gameDescription = effect.komunikat[0]
+                            logic.gameDescription = effect.message[0]
                             commandResponse.innerHTML = logic.gameDescription
                             gameConsole.style.display = "none"
                             setTimeout(function () {
-                                logic.gameDescription = effect.komunikat[1]
+                                logic.gameDescription = effect.message[1]
                                 commandResponse.innerHTML = logic.gameDescription
                                 gameConsole.style.display = "none"
                             }, 2000)
                             setTimeout(function () {
-                                logic.gameDescription = effect.komunikat[2]
+                                logic.gameDescription = effect.message[2]
                                 logic.action()
                             }, 4001)
                             setTimeout(function () {
                                 logic.equipment = effect.result
-                                logic.gameDescription = effect.komunikat
+                                logic.gameDescription = effect.message
                                 logic.loadData()
                             }, 6002)
                             break;
@@ -352,12 +352,12 @@ var logic = {
                         logic.equipment = effect.result
 
                         if (effect.specialMark == "L") {
-                            logic.kamienie++
+                            logic.collectedStones++
                             currentLoc.locItem.push(logic.equipment)
                             logic.equipment = 0
                             logic.action()
 
-                            if (logic.kamienie == 6) {
+                            if (logic.collectedStones == 6) {
                                 if (effect.location == 43) {
                                     logic.equipment = 37
                                     logic.gameDescription = POISON_SHEEP
@@ -382,11 +382,11 @@ var logic = {
                             places[3][2].locImg = "DS68.bmp"
                             currentLoc.locItem[0] = logic.equipment
                             logic.equipment = 0
-                            logic.gameDescription = effect.komunikat[0]
+                            logic.gameDescription = effect.message[0]
                             commandResponse.innerHTML = logic.gameDescription
                             gameConsole.style.display = "none"
                             setTimeout(function () {
-                                logic.gameDescription = effect.komunikat[1]
+                                logic.gameDescription = effect.message[1]
                                 logic.action()
                                 logic.loadData()
                             }, 2000)
@@ -395,7 +395,7 @@ var logic = {
                         }
 
 
-                        logic.gameDescription = effect.komunikat
+                        logic.gameDescription = effect.message
                         logic.action()
                         logic.loadData()
                         break;

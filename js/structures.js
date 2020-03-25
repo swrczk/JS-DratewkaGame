@@ -35,9 +35,9 @@ function _reaction() {
     this.needed = arguments[0]
     this.location = arguments[1]
     this.result = arguments[2]
-    this.komunikat = arguments[3]
+    this.message = arguments[3]
     this.specialMark = arguments[4]
-    this.kamien = arguments[5]
+    this.stone = arguments[5]
 }
 
 function _items() //numer - pozycja tablicy +9
