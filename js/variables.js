@@ -15,6 +15,14 @@ INSTRUCTION = "NORTH or N, SOUTH or S <br><br> " +
     "G FOR LORE INFO <br><br><br> " +
     "Press any key"
 
+START_INSTRUCTION = "INSTRUCTION<br><br>" +
+    "Prepare amazing shoes from dragonskin for your King!<br><br>" +
+    "You can move by arrows or commands. <br>" +
+    "To get list of commands write V in console.<br>" +
+    " For more HINTS use G.<br> " +
+    "You can carry only one item. You can take, drop or use it. <br><br><br> " +
+    "Press any key to start"
+
 POISON_SHEEP = "Your fake sheep is full of poison and ready to be eaten by the dragon"
 
 ACTION_TIME = 2 * 1000

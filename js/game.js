@@ -9,6 +9,7 @@ var game = {
             let keyCode = e.keyCode
             if (engine.pressedSpace(keyCode) || engine.pressedEnter(keyCode)) {
                 $("#intro")?.remove()
+                game.instruction()
             }
         })
 
@@ -27,7 +28,7 @@ var game = {
 
                 setTimeout(function () {
                     $("#intro")?.remove()
-
+                    game.instruction()
                 }, INTRO_TIME)
 
             }, INTRO_TIME)
@@ -36,15 +37,29 @@ var game = {
 
 
     },
+    instruction: function () {
+        let instruction = document.createElement("DIV")
+        instruction.id="intro"
+        instruction.style.backgroundColor="black"
+        instruction.innerHTML=START_INSTRUCTION
+        $(document.body).append(instruction)
+        $("#intro").css("padding", "100px")
+
+        $(document).keydown(function skipIntro() {
+            console.log("x")
+            $("#intro")?.remove()
+            $(document).unbind()
+        })
+    },
     start: function () {
 
         //----------konsola
         $("#gameConsole").blur()
         $("#gameConsole").keyup(function () {
-                $("#gameConsole").val(function(i,val) {
-                    return val.toUpperCase();
-                })
-                game.consoleTurnOn()
+            $("#gameConsole").val(function (i, val) {
+                return val.toUpperCase();
+            })
+            game.consoleTurnOn()
         })
 
     },

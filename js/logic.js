@@ -9,14 +9,13 @@ var logic = {
             consoleArg = engine.whichDirection(consoleArg, keyDownNumber)
         } else {
             command = consoleArg.split(" ")
-
             consoleArg = engine.whichAction(command[0])
-
             calledItemID = engine.getItemID(command[1])
 
         }
+
         if ("N|S|E|W".includes(consoleArg))
-            currentLoc.changePlace(consoleArg )
+            currentLoc.changePlace(consoleArg)
         else
             switch (consoleArg) {
                 case "V" :
@@ -66,9 +65,9 @@ var logic = {
             }
 
         if (engine.gameDescription) engine.displayAction()
-
         $("#gameConsole").val("")
     },
+
     takeItem: function (currentLoc, calledItemID) {
 
         if (currentLoc.locItem.indexOf(calledItemID) != -1) {
@@ -84,8 +83,8 @@ var logic = {
             engine.gameDescription = "There isn't anything like that here"
         }
     },
-    dropItem: function (currentLoc, calledItemID) {
 
+    dropItem: function (currentLoc, calledItemID) {
         if (calledItemID == -1 || player.equipment != calledItemID) {
             engine.gameDescription = "You are not carrying it"
         } else {
@@ -109,6 +108,7 @@ var logic = {
             }
         }
     },
+
     useItem: function (currentLoc, effect) {
         switch (effect.specialMark) {
             case "K":
@@ -119,16 +119,16 @@ var logic = {
                 break
 
             case "N":
-                itemsAction.digging(0,effect)
+                itemsAction.digging(0, effect)
                 player.equipment = effect.result
                 break
 
             case "L":
-                itemsAction.importantItem(currentLoc,effect)
+                itemsAction.importantItem(currentLoc, effect)
                 break
 
             case "D":
-                itemsAction.feedingDragon(effect,currentLoc)
+                itemsAction.feedingDragon(effect, currentLoc)
                 break
 
             default:

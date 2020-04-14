@@ -1,8 +1,8 @@
 var player ={
 
     instance: 47,
-    equipment: 19,
-    necessaryItems: 5,
+    equipment: 0,
+    necessaryItems: 0,
     skin: 0,
     dragon: 0
 }
@@ -45,7 +45,7 @@ var places = [
     [,
         new _localization("You are in the Wawel Castle", "rgb(255,176,141)", 4, []),
         new _localization("You are inside a dragon's cave", "rgb(198,205,193)", 5, []),
-        new _localization("A perfect place to set a trap", "rgb(255,176,141)", 9, [8, 4, 11, 14, 17]),//[8,4,11,14,17]-shortcut
+        new _localization("A perfect place to set a trap", "rgb(255,176,141)", 9, []),//[8,4,11,14,17]-shortcut
         new _localization("You are by the water mill", "rgb(255,190,99)", 4, [12]),
         new _localization("You are at a main crossroad", "rgb(255,190,99)", 15, []),
         new _localization("You are on a town street", "rgb(255,190,99)", 13, []),
