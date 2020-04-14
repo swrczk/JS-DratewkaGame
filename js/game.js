@@ -1,27 +1,16 @@
 var game = {
     gameIntro: function () {
-        let audio = document.getElementById("audio");
-        //var audio = new Audio('audio/hejnal.mp3');
-        let promise = document.getElementById("audio").play();
-
-        if (promise !== undefined) {
-            promise.then(_ => {
-                audio.play();
-            }).catch(error => {
-                console.log("music is not working")
-            });
-        }
 
         let intro = document.createElement("DIV")
         intro.id = "intro"
-        document.body.appendChild(intro)
+        $(document.body).append(intro)
 
-        document.onkeydown = function skipIntro(e) {
+        $(document).keydown(function skipIntro(e) {
             let keyCode = e.keyCode
-            if (pressedSpace(keyCode) || pressedEnter(keyCode)) {
-                document.getElementById("intro")?.remove()
+            if (engine.pressedSpace(keyCode) || engine.pressedEnter(keyCode)) {
+                $("#intro")?.remove()
             }
-        }
+        })
 
         let introImage = document.createElement("IMG")
         introImage.id = "introImage"
@@ -37,20 +26,19 @@ var game = {
 
 
                 setTimeout(function () {
-                    document.getElementById("intro")?.remove()
+                    $("#intro")?.remove()
 
-                }, 5 * 1000)
+                }, INTRO_TIME)
 
-            }, 5 * 1000)
+            }, INTRO_TIME)
 
-        }, 5 * 1000)
+        }, INTRO_TIME)
 
 
     },
     start: function () {
 
         //----------konsola
-        var gameConsole= document.getElementById("gameConsole")
         $("#gameConsole").blur()
         $("#gameConsole").keyup(function () {
                 $("#gameConsole").val(function(i,val) {

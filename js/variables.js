@@ -18,6 +18,7 @@ INSTRUCTION = "NORTH or N, SOUTH or S <br><br> " +
 POISON_SHEEP = "Your fake sheep is full of poison and ready to be eaten by the dragon"
 
 ACTION_TIME = 2 * 1000
+INTRO_TIME = 5 * 1000
 SAVE_TIME = 10
 ITEM_SHIFT = 0
 SPECIAL_ITEM_LIMIT = 3

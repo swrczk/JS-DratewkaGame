@@ -1,5 +1,5 @@
 var engine = {
-    action: function () {
+    displayAction: function () {
 
         $("#commandResponse").html(logic.gameDescription)
         $("#gameConsole").hide()
@@ -16,7 +16,7 @@ var engine = {
 
             engine.setCompassDefault()
 
-            let currentLoc = places[logic.column][logic.row]
+            let currentLoc = places[Math.floor(logic.instance / 10)][logic.instance % 10]
 
             engine.setCurrentLocImg(currentLoc)
 
@@ -181,5 +181,24 @@ var engine = {
             case "USE" :
                 return "U"
         }
+    },
+    emptyEquipment: function () {
+        if (logic.equipment == 0) {
+            logic.gameDescription = "You are not carrying anything"
+            return true
+        } else {
+            logic.gameDescription = "You are carrying something"
+            return false
+        }
+    },
+    getItemID: function (itemName) {
+        let item = 0
+        do {
+            item++
+            if (item == items.length) {
+                return -1
+            }
+        } while (itemName != items[item].name)
+        return item
     }
 }
