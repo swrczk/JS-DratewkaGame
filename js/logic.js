@@ -62,7 +62,7 @@ var logic = {
                         break;
 
                     case "S":
-                        if (currentLoc.south == 1) {
+                        if (currentLoc.isSouth()) {
                             logic.column++
                             logic.gameDescription = "You are going south..."
                             engine.action()
@@ -116,14 +116,14 @@ var logic = {
                             break;
                         }
 
-                        itemID = currentLoc.locItem.indexOf(item + ITEM_SHIFT);
+                        itemID = currentLoc.locItem.indexOf(item);
 
                         if (itemID != -1) {
                             if (items[item].specialMark == 0) {
                                 logic.gameDescription = "You can't carry it"
                                 engine.action()
                             } else {
-                                logic.equipment = item + ITEM_SHIFT
+                                logic.equipment = item
                                 currentLoc.locItem[itemID] = 0
                                 logic.gameDescription = "You are taking " + items[item].fullName
                                 engine.action()
@@ -138,7 +138,7 @@ var logic = {
                     case "D":
                         let playerItem = "";
                         for (let i = 0; i < items.length; i++) {
-                            if (i == logic.equipment - ITEM_SHIFT) {
+                            if (i == logic.equipment ) {
                                 playerItem = items[i].name
                             }
                         }
@@ -153,7 +153,7 @@ var logic = {
                         let specialItemLimit = 0;
                         for (let i = 0; i < currentLoc.locItem.length; i++) {
                             if (currentLoc.locItem[i] != 0) {
-                                if (items[currentLoc.locItem[i] - ITEM_SHIFT].specialMark == 1) {
+                                if (items[currentLoc.locItem[i]].specialMark == 1) {
                                     specialItemLimit++
                                 }
                             }
@@ -175,7 +175,7 @@ var logic = {
                             currentLoc.locItem.push(logic.equipment)
                         } else
                             currentLoc.locItem[itemID] = logic.equipment
-                        logic.gameDescription = "You are about to drop " + items[logic.equipment - ITEM_SHIFT].fullName
+                        logic.gameDescription = "You are about to drop " + items[logic.equipment].fullName
                         logic.equipment = 0;
                         engine.action()
                         engine.loadData()
@@ -187,7 +187,7 @@ var logic = {
                             engine.action()
                             break;
                         }
-                        if (items[logic.equipment - ITEM_SHIFT].name != command[1]) {
+                        if (items[logic.equipment].name != command[1]) {
                             logic.gameDescription = "You aren't carrying anything like that"
                             engine.action()
                             break;
@@ -200,7 +200,7 @@ var logic = {
                         }
 
                         let currentLocData = logic.column * 10 + logic.row + 11
-                        if (effect.location != currentLocData) {
+                        if (!effect || effect.location != currentLocData) {
                             logic.gameDescription = "Nothing happened"
                             engine.action()
                             break;
@@ -259,7 +259,7 @@ var logic = {
                                     $("#gameConsole").hide()
                                     setTimeout(function () {
                                         $("#commandResponse").html("What's now?")
-                                        $("#gameConsole").hide()
+                                        $("#gameConsole").show()
                                         $("#gameConsole").focus()
                                     }, ACTION_TIME);
                                     engine.loadData()

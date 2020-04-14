@@ -65,7 +65,7 @@ var engine = {
                         if (availableItemsNames.trim()) {
                             availableItemsNames += ","
                         }
-                        availableItemsNames += " " + items[currentLoc.locItem[i] - ITEM_SHIFT].fullName
+                        availableItemsNames += " " + items[currentLoc.locItem[i]].fullName
                     }
                 }
 
@@ -76,7 +76,7 @@ var engine = {
             if (logic.equipment == 0)
                 carrying = "You are carrying nothing"
             else {
-                carrying = "You are carrying " + items[logic.equipment - ITEM_SHIFT].fullName
+                carrying = "You are carrying " + items[logic.equipment].fullName
             }
 
             $("#gameText").html(locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". ")

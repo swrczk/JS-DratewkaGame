@@ -19,5 +19,5 @@ POISON_SHEEP = "Your fake sheep is full of poison and ready to be eaten by the d
 
 ACTION_TIME = 2 * 1000
 SAVE_TIME = 10
-ITEM_SHIFT = 9
+ITEM_SHIFT = 0
 SPECIAL_ITEM_LIMIT = 3
