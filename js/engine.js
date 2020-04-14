@@ -1,23 +1,19 @@
 var engine = {
+    gameDescription: "",
+    text: "",
     displayAction: function () {
-
-        $("#commandResponse").html(logic.gameDescription)
+        $("#commandResponse").html(engine.gameDescription)
         $("#gameConsole").hide()
 
         setTimeout(function () {
-            $("#commandResponse").html("What's now?")
-            $("#gameConsole").show()
-            $("#gameConsole").focus()
+            engine.defaultConsole()
         }, ACTION_TIME)
     },
 
     loadData: function () {
         setTimeout(function () {
-
+            let currentLoc = places[Math.floor(player.instance / 10)][player.instance % 10]
             engine.setCompassDefault()
-
-            let currentLoc = places[Math.floor(logic.instance / 10)][logic.instance % 10]
-
             engine.setCurrentLocImg(currentLoc)
 
             let locDescription = ""
@@ -27,56 +23,37 @@ var engine = {
                 $("#compassN").hide()
             }
             if (currentLoc.isEast()) {
-                if (locDescription.trim()) {
-                    locDescription += ","
-                }
+                if (locDescription.trim()) locDescription += ","
                 locDescription += " east"
                 $("#compassE").hide()
             }
             if (currentLoc.isSouth()) {
-                if (locDescription.trim()) {
-                    locDescription += ","
-                }
+                if (locDescription.trim()) locDescription += ","
                 locDescription += " south"
                 $("#compassS").hide()
             }
             if (currentLoc.isWest()) {
-                if (locDescription.trim()) {
-                    locDescription += ","
-                }
+                if (locDescription.trim()) locDescription += ","
                 locDescription += " west"
                 $("#compassW").hide()
             }
             locDescription = "You can go:" + locDescription
 
-            let availableItems = 0;
-            for (let i = 0; i < currentLoc.locItem.length; i++) {
-                if (currentLoc.locItem[i] != 0) {
-                    availableItems++
-                }
-            }
             let availableItemsNames = "";
-            if (availableItems == 0) {
-                availableItemsNames = "You see nothing"
-            } else {
+            if (currentLoc.locItem.length == 0) availableItemsNames = "You see nothing"
+            else {
                 for (let i = 0; i < currentLoc.locItem.length; i++) {
-                    if (currentLoc.locItem[i] != 0) {
-
-                        if (availableItemsNames.trim()) {
-                            availableItemsNames += ","
-                        }
-                        availableItemsNames += " " + items[currentLoc.locItem[i]].fullName
-                    }
+                    if (availableItemsNames.trim()) availableItemsNames += ","
+                    availableItemsNames += " " + items[currentLoc.locItem[i]].fullName
                 }
-
                 availableItemsNames = "You see " + availableItemsNames
             }
 
             let carrying;
-            if (logic.equipment == 0)
+            if (player.equipment == 0)
                 carrying = "You are carrying nothing"
             else {
-                carrying = "You are carrying " + items[logic.equipment].fullName
+                carrying = "You are carrying " + items[player.equipment].fullName
             }
 
             $("#gameText").html(locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". ")
@@ -91,27 +68,23 @@ var engine = {
     },
 
     setCurrentLocImg: function (currentLoc) {
-
         $("#locTitle").html(currentLoc.locTitle)
-
         $("#locImage").html("")
-
         let currentLocImg = document.createElement("IMG")
-        currentLocImg.setAttribute("src", "img/" + currentLoc.locImg)
+        let src = player.instance + ".gif"
+        if (player.dragon && player.instance == 43) src = "DS" + src
+        currentLocImg.setAttribute("src", "img/" + src)
         $("#locImage").append(currentLocImg)
-
-
         $("#locImage").css('backgroundColor', currentLoc.locColor)
     },
 
     putPrevText: function () {
-
         setTimeout(function () {
             document.body.onkeydown = function () {
 
                 $("#commandResponse").show()
                 $("#gameConsole").show()
-                let prevText = logic.text.split(".")
+                let prevText = engine.text.split(".")
                 let locDescription = prevText[0];
                 for (let i = 1; i < prevText.length; i++) {
                     locDescription += ".<br><br>" + prevText[i]
@@ -152,6 +125,7 @@ var engine = {
         if (number === 32) return true
         else false
     },
+
     whichDirection: function (consoleArg, keyNumber) {
         if (consoleArg.length === 1)
             return consoleArg
@@ -170,6 +144,21 @@ var engine = {
         }
     },
 
+    nameOfDirection: function (consoleArg) {
+        if (consoleArg.length > 1)
+            return consoleArg
+        switch (consoleArg) {
+            case "N" :
+                return "NORTH"
+            case"S":
+                return "SOUTH"
+            case "W":
+                return "WEST"
+            case"E":
+                return "EAST"
+        }
+    },
+
     whichAction: function (command) {
         if (command.length === 1)
             return command
@@ -181,16 +170,20 @@ var engine = {
             case "USE" :
                 return "U"
         }
-    },
+    }
+    ,
+
     emptyEquipment: function () {
-        if (logic.equipment == 0) {
-            logic.gameDescription = "You are not carrying anything"
+        if (player.equipment == 0) {
+            engine.gameDescription = "You are not carrying anything"
             return true
         } else {
-            logic.gameDescription = "You are carrying something"
+            engine.gameDescription = "You are carrying something"
             return false
         }
-    },
+    }
+    ,
+
     getItemID: function (itemName) {
         let item = 0
         do {
@@ -200,5 +193,12 @@ var engine = {
             }
         } while (itemName != items[item].name)
         return item
+    }
+    ,
+
+    defaultConsole() {
+        $("#commandResponse").html("What's now?")
+        $("#gameConsole").show()
+        $("#gameConsole").focus()
     }
 }

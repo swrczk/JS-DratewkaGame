@@ -44,9 +44,19 @@ var game = {
                 $("#gameConsole").val(function(i,val) {
                     return val.toUpperCase();
                 })
-                logic.startGame()
+                game.consoleTurnOn()
         })
 
+    },
+    consoleTurnOn: function () {
+        var gameConsole = document.getElementById("gameConsole")
+        gameConsole.onkeydown = function (e) {
+
+            let keyDownNumber = e.which
+
+            if (engine.pressedEnter(keyDownNumber) || engine.isUp(keyDownNumber) || engine.isDown(keyDownNumber) || engine.isLeft(keyDownNumber) || engine.isRight(keyDownNumber))
+                logic.makeAction(keyDownNumber)
+        }
     },
     end: function () {
         let endDiv = document.createElement("DIV");
