@@ -9,6 +9,7 @@
     <script src="js/variables.js"></script>
     <script src="js/structures.js"></script>
     <script src="js/data.js"></script>
+    <script src="js/engine.js"></script>
     <script src="js/game.js"></script>
     <script src="js/logic.js"></script>
 
@@ -29,7 +30,7 @@
     $(function () {
         //game.gameIntro()
         game.start()
-        logic.loadData()
+        engine.loadData()
     })
     function setFocusToTextBox(){
         $("#gameConsole").focus();
