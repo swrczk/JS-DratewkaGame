@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <title>Dratewka</title>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <!--<script src="libs/jquery-3.4.1.min.js"></script>-->
+    <script src="libs/jquery-3.4.1.min.js"></script>
     <script src="js/variables.js"></script>
     <script src="js/structures.js"></script>
     <script src="js/data.js"></script>
@@ -15,26 +15,25 @@
     <link rel="shortcut icon" type="image/png" href="img/boots.png"/>
 </head>
 
-<body>
+<body onload='setFocusToTextBox()'>
 <script>
 
     // Original game was designed by Krzysztof Ziembik and Maciej Mendela
     // and is available HERE :
     //     https://archive.org/details/a8b_Dratewka_the_Shoemaker_2008_Ziembik_Krzysztof_Mendela_Maciej_PL_en_FW
     //         This version i reconstruction created in highschool as education project
-    // by Aleksandra Świerczek and refactored in March 202 during
+    // by Aleksandra Świerczek and refactored in March 2020 during
     // mentoring program.
     //     Check my github: https://github.com/swrczk/
 
-    window.onload = function () {
-
-        // $(function(){
+    $(function () {
         //game.gameIntro()
         game.start()
         logic.loadData()
-        // })
+    })
+    function setFocusToTextBox(){
+        $("#gameConsole").focus();
     }
-
 </script>
 <div id="contener">
     <div id="locTitle"></div>

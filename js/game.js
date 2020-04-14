@@ -48,20 +48,16 @@ var game = {
 
     },
     start: function () {
-        window.onload = function () {
-            document.getElementById("gameConsole").focus();
-
-        }
 
         //----------konsola
-        var gameConsole = document.getElementById("gameConsole")
-        gameConsole.onblur = "this.focus()"
-        gameConsole.onkeyup = function () {
-            if (logic.casesens == 0) {
-                gameConsole.value = gameConsole.value.toUpperCase()
-                logic.startGame(gameConsole)
-            }
-        }
+        var gameConsole= document.getElementById("gameConsole")
+        $("#gameConsole").blur()
+        $("#gameConsole").keyup(function () {
+                $("#gameConsole").val(function(i,val) {
+                    return val.toUpperCase();
+                })
+                logic.startGame()
+        })
 
     },
     end: function () {

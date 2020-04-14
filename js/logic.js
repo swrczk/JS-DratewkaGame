@@ -1,7 +1,6 @@
 var logic = {
     column: 3,
     row: 6,
-    casesens: 0,
     equipment: 0,
     gameDescription: "",
     collectedStones: 0,
@@ -9,15 +8,15 @@ var logic = {
     dragon: 0,
     text: "",
     action: function () {
-        let commandResponse = document.getElementById("commandResponse")
-        let gameConsole = document.getElementById("gameConsole")
-        commandResponse.innerHTML = logic.gameDescription
-        gameConsole.style.display = "none"
+
+        $("#commandResponse").html(logic.gameDescription)
+        $("#gameConsole").hide()
+
         setTimeout(function () {
-            commandResponse.innerHTML = "What's now?"
-            gameConsole.style.display = "inline"
-            document.getElementById("gameConsole").focus()
-        }, 2000); //00
+            $("#commandResponse").html("What's now?")
+            $("#gameConsole").show()
+            $("#gameConsole").focus()
+        }, ACTION_TIME);
     },
     loadData: function () {
         setTimeout(function () {
@@ -28,35 +27,34 @@ var logic = {
 
             setCurrentLocImg(currentLoc)
 
-            let currentLocData = document.getElementById("gameText")
-            let locDescription = "You can go:"
+            let locDescription = ""
 
             if (currentLoc.isNorth()) {
                 locDescription += " north"
-                document.getElementById("compassN").style.display = "none"
+                $("#compassN").hide()
             }
             if (currentLoc.isEast()) {
-                if (currentLoc.isNorth()) {
+                if (locDescription.trim()) {
                     locDescription += ","
                 }
                 locDescription += " east"
-                document.getElementById("compassE").style.display = "none"
+                $("#compassE").hide()
             }
             if (currentLoc.isSouth()) {
-                if (currentLoc.isNorth() || currentLoc.isEast()) {
+                if (locDescription.trim()) {
                     locDescription += ","
                 }
                 locDescription += " south"
-                document.getElementById("compassS").style.display = "none"
+                $("#compassS").hide()
             }
             if (currentLoc.isWest()) {
-                if (currentLoc.isNorth() || currentLoc.isEast() || currentLoc.isSouth()) {
+                if (locDescription.trim()) {
                     locDescription += ","
                 }
                 locDescription += " west"
-                document.getElementById("compassW").style.display = "none"
+                $("#compassW").hide()
             }
-
+            locDescription = "You can go:" + locDescription
 
             let availableItems = 0;
             for (let i = 0; i < currentLoc.locItem.length; i++) {
@@ -64,21 +62,23 @@ var logic = {
                     availableItems++
                 }
             }
-            let availableItemsNames;
+            let availableItemsNames = "";
             if (availableItems == 0) {
                 availableItemsNames = "You see nothing"
             } else {
-                availableItemsNames = "You see"
                 for (let i = 0; i < currentLoc.locItem.length; i++) {
                     if (currentLoc.locItem[i] != 0) {
+
+                        if (availableItemsNames.trim()) {
+                            availableItemsNames += ","
+                        }
                         availableItemsNames += " " + items[currentLoc.locItem[i] - ITEM_SHIFT].fullName
                     }
-
-                    if (currentLoc.locItem[i + 1] != 0 && (i + 1) != currentLoc.locItem.length) {
-                        availableItemsNames += ","
-                    }
                 }
+
+                availableItemsNames = "You see " + availableItemsNames
             }
+
             let carrying;
             if (logic.equipment == 0)
                 carrying = "You are carrying nothing"
@@ -86,7 +86,7 @@ var logic = {
                 carrying = "You are carrying " + items[logic.equipment - ITEM_SHIFT].fullName
             }
 
-            currentLocData.innerHTML = locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". "
+            $("#gameText").html(locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". ")
         }, ACTION_TIME)
     },
     startGame: function () {
@@ -225,7 +225,7 @@ var logic = {
                             logic.action()
                             break;
                         }
-                        
+
                         itemID = currentLoc.locItem.indexOf(item + ITEM_SHIFT);
 
                         if (itemID != -1) {
@@ -407,11 +407,8 @@ var logic = {
                 }
 
                 gameConsole.value = ""
-                logic.casesens = 0
             }
 
-            if (pressedSpace(keyDownNumber))
-                logic.casesens = 1
         };
     }
 }
@@ -479,24 +476,22 @@ function whichAction(command) {
 }
 
 function setCompassDefault() {
-    document.getElementById("compassN").style.display = "block"
-    document.getElementById("compassS").style.display = "block"
-    document.getElementById("compassE").style.display = "block"
-    document.getElementById("compassW").style.display = "block"
+    $("#compassN").show()
+    $("#compassS").show()
+    $("#compassE").show()
+    $("#compassW").show()
 }
 
 function setCurrentLocImg(currentLoc) {
 
-    let currentLocData = document.getElementById("locTitle")
-    currentLocData.innerHTML = currentLoc.locTitle
+    $("#locTitle").html(currentLoc.locTitle)
 
-    currentLocData = document.getElementById("locImage")
-    currentLocData.innerHTML = ""
+    $("#locImage").html("")
 
     let currentLocImg = document.createElement("IMG")
     currentLocImg.setAttribute("src", "img/" + currentLoc.locImg)
-    currentLocData.appendChild(currentLocImg)
+    $("#locImage").append(currentLocImg)
 
 
-    currentLocData.style.backgroundColor = currentLoc.locColor
+    $("#locImage").css('backgroundColor', currentLoc.locColor)
 }

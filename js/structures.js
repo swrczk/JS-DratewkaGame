@@ -1,12 +1,12 @@
-function $(name){
-    let type = name[0]
-    switch(type){
-        case "#":
-            return document.getElementById(name.substring(1))
-        case ".":
-            return document.getElementsByClassName(name.substring(1))
-    }
-}
+// function $(name){
+//     let type = name[0]
+//     switch(type){
+//         case "#":
+//             return document.getElementById(name.substring(1))
+//         case ".":
+//             return document.getElementsByClassName(name.substring(1))
+//     }
+// }
 
 function _localization() {
     this.locTitle = arguments[0]
