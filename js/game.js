@@ -34,23 +34,24 @@ var game = {
             }, INTRO_TIME)
 
         }, INTRO_TIME)
-
-
     },
+
     instruction: function () {
         let instruction = document.createElement("DIV")
-        instruction.id="intro"
-        instruction.style.backgroundColor="black"
-        instruction.innerHTML=START_INSTRUCTION
+        instruction.id = "intro"
+        instruction.style.backgroundColor = "black"
+        instruction.innerHTML = START_INSTRUCTION
         $(document.body).append(instruction)
         $("#intro").css("padding", "100px")
 
         $(document).keydown(function skipIntro() {
-            console.log("x")
             $("#intro")?.remove()
             $(document).unbind()
+            game.instruction = function () {
+            }
         })
     },
+
     start: function () {
 
         //----------konsola
@@ -61,10 +62,10 @@ var game = {
             })
             game.consoleTurnOn()
         })
-
     },
+
     consoleTurnOn: function () {
-        var gameConsole = document.getElementById("gameConsole")
+        let gameConsole = document.getElementById("gameConsole");
         gameConsole.onkeydown = function (e) {
 
             let keyDownNumber = e.which
@@ -73,11 +74,11 @@ var game = {
                 logic.makeAction(keyDownNumber)
         }
     },
+
     end: function () {
         let endDiv = document.createElement("DIV");
         endDiv.id = "end"
         document.body.appendChild(endDiv)
-
 
         let audio = document.createElement("AUDIO");
 
@@ -106,11 +107,8 @@ var game = {
         endDiv.appendChild(endExplosionImg)
         endExplosionImg.setAttribute("src", "img/giphy.gif")
 
-
         setTimeout(function () {
             endExplosionImg.setAttribute("src", "img/gif.gif")
         }, 0.5 * 1000)
-
-
     }
 }

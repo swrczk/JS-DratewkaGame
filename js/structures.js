@@ -16,20 +16,16 @@ function _localization() {
 
 
     this.isNorth = function () {
-        if (this.directions & 8) return true
-        else return false
+        return (this.directions & 8);
     }
     this.isEast = function () {
-        if (this.directions & 4) return true
-        else return false
+        return (this.directions & 4);
     }
     this.isSouth = function () {
-        if (this.directions & 2) return true
-        else return false
+        return (this.directions & 2);
     }
     this.isWest = function () {
-        if (this.directions & 1) return true
-        else return false
+        return (this.directions & 1);
     }
     this.changePlace= function (consoleArg) {
         let isOpenPath = false

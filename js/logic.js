@@ -5,13 +5,12 @@ var logic = {
         let calledItemID = 0;
         let consoleArg = $("#gameConsole").val().toUpperCase().trim()
 
-        if (!consoleArg.includes(" ")) {
-            consoleArg = engine.whichDirection(consoleArg, keyDownNumber)
-        } else {
+        if (consoleArg.includes(" ")) {
             command = consoleArg.split(" ")
             consoleArg = engine.whichAction(command[0])
             calledItemID = engine.getItemID(command[1])
-
+        } else {
+            consoleArg = engine.whichDirection(consoleArg, keyDownNumber)
         }
 
         if ("N|S|E|W".includes(consoleArg))
@@ -39,19 +38,19 @@ var logic = {
                     break;
 
                 case "U":
-                    if (player.equipment == 0) {
+                    if (player.equipment === 0) {
                         engine.gameDescription = "You are not carrying anything"
-                    } else if (player.equipment != calledItemID) {
+                    } else if (player.equipment !== calledItemID) {
                         engine.gameDescription = "You aren't carrying anything like that"
                     } else {
 
                         let effect;
                         for (let i = 0; i < reactions.length; i++) {
-                            if (player.equipment == reactions[i].needed)
+                            if (player.equipment === reactions[i].needed)
                                 effect = reactions[i]
                         }
 
-                        if (!effect || effect.location != player.instance) {
+                        if (!effect || effect.location !== player.instance) {
                             engine.gameDescription = "Nothing happened"
                             engine.displayAction()
 
@@ -70,8 +69,8 @@ var logic = {
 
     takeItem: function (currentLoc, calledItemID) {
 
-        if (currentLoc.locItem.indexOf(calledItemID) != -1) {
-            if (items[calledItemID].specialMark == 0) {
+        if (currentLoc.locItem.indexOf(calledItemID) !== -1) {
+            if (items[calledItemID].specialMark === 0) {
                 engine.gameDescription = "You can't carry it"
             } else {
                 player.equipment = calledItemID
@@ -85,14 +84,14 @@ var logic = {
     },
 
     dropItem: function (currentLoc, calledItemID) {
-        if (calledItemID == -1 || player.equipment != calledItemID) {
+        if (calledItemID === -1 || player.equipment !== calledItemID) {
             engine.gameDescription = "You are not carrying it"
         } else {
             //czy nie ma 3 przedmiotow z flaga1
             let specialItemLimit = 0;
             for (let i = 0; i < currentLoc.locItem.length; i++) {
-                if (currentLoc.locItem[i] != 0) {
-                    if (items[currentLoc.locItem[i]].specialMark == 1) {
+                if (currentLoc.locItem[i] !== 0) {
+                    if (items[currentLoc.locItem[i]].specialMark === 1) {
                         specialItemLimit++
                     }
                 }

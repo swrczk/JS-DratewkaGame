@@ -40,7 +40,7 @@ var engine = {
             locDescription = "You can go:" + locDescription
 
             let availableItemsNames = "";
-            if (currentLoc.locItem.length == 0) availableItemsNames = "You see nothing"
+            if (currentLoc.locItem.length === 0) availableItemsNames = "You see nothing"
             else {
                 for (let i = 0; i < currentLoc.locItem.length; i++) {
                     if (availableItemsNames.trim()) availableItemsNames += ","
@@ -50,7 +50,7 @@ var engine = {
             }
 
             let carrying;
-            if (player.equipment == 0)
+            if (player.equipment === 0)
                 carrying = "You are carrying nothing"
             else {
                 carrying = "You are carrying " + items[player.equipment].fullName
@@ -72,7 +72,7 @@ var engine = {
         $("#locImage").html("")
         let currentLocImg = document.createElement("IMG")
         let src = player.instance + ".gif"
-        if (player.dragon && player.instance == 43) src = "DS" + src
+        if (player.dragon && player.instance === 43) src = "DS" + src
         currentLocImg.setAttribute("src", "img/" + src)
         $("#locImage").append(currentLocImg)
         $("#locImage").css('backgroundColor', currentLoc.locColor)
@@ -90,7 +90,8 @@ var engine = {
                     locDescription += ".<br><br>" + prevText[i]
                 }
                 $("#gameText").html(locDescription)
-                document.body.onkeydown = ""
+                document.body.onkeydown = function () {
+                }
                 $("#gameConsole").focus()
             }
         }, SAVE_TIME)
@@ -170,31 +171,28 @@ var engine = {
             case "USE" :
                 return "U"
         }
-    }
-    ,
+    },
 
     emptyEquipment: function () {
-        if (player.equipment == 0) {
+        if (player.equipment === 0) {
             engine.gameDescription = "You are not carrying anything"
             return true
         } else {
             engine.gameDescription = "You are carrying something"
             return false
         }
-    }
-    ,
+    },
 
     getItemID: function (itemName) {
         let item = 0
         do {
             item++
-            if (item == items.length) {
+            if (item === items.length) {
                 return -1
             }
-        } while (itemName != items[item].name)
+        } while (itemName !== items[item].name)
         return item
-    }
-    ,
+    },
 
     defaultConsole() {
         $("#commandResponse").html("What's now?")

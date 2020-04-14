@@ -24,7 +24,7 @@ var itemsAction = {
         player.skin++
     } ,
     cuttingDragonSkin: function (effect) {
-        if (player.skin == 0) {
+        if (player.skin === 0) {
             engine.gameDescription = "Nothing happened"
             engine.displayAction()
         }
@@ -37,8 +37,8 @@ var itemsAction = {
         player.equipment = 0
         engine.displayAction()
 
-        if (player.necessaryItems == 6) {
-            if (effect.location == 43) {
+        if (player.necessaryItems === 6) {
+            if (effect.location === 43) {
                 player.equipment = 28
                 engine.gameDescription = POISON_SHEEP
                 currentLoc.locItem=[]
