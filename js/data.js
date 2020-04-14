@@ -2,64 +2,64 @@ var places = [
 
     //------------------------1
     [
-        new _localization("You are inside a brimstone mine", "11.gif", "rgb(235,211,64)", "0", "1", "0", "0", []),
-        new _localization("You are at the entrance to the mine", "12.gif", "rgb(89,93,87)", "0", "1", "0", "1", []),
-        new _localization("A hill", "13.gif", "rgb(117,237,243)", "0", "1", "1", "1", [31, 0, 0]),
-        new _localization("Some bushes", "14.gif", "rgb(202,230,51)", "0", "1", "0", "1", [0, 0, 0]),
-        new _localization("An old deserted hut", "15.gif", "rgb(220,204,61)", "0", "1", "0", "1", [27, 0, 0]),
-        new _localization("The edge of a forest", "16.gif", "rgb(167,245,63)", "0", "1", "0", "1", [0, 0, 0]),
-        new _localization("A dark forest", "17.gif", "rgb(140,253,99)", "0", "0", "1", "1", [14, 0, 0])
+        new _localization("You are inside a brimstone mine", "11.gif", "rgb(235,211,64)", 4, []),
+        new _localization("You are at the entrance to the mine", "12.gif", "rgb(89,93,87)", 5, []),
+        new _localization("A hill", "13.gif", "rgb(117,237,243)", 7, [31, 0, 0]),
+        new _localization("Some bushes", "14.gif", "rgb(202,230,51)", 5, [0, 0, 0]),
+        new _localization("An old deserted hut", "15.gif", "rgb(220,204,61)", 5, [27, 0, 0]),
+        new _localization("The edge of a forest", "16.gif", "rgb(167,245,63)", 5 [0, 0, 0]),
+        new _localization("A dark forest", "17.gif", "rgb(140,253,99)", 3, [14, 0, 0])
     ],
 
     //------------------------2
     [
-        new _localization("A man nearby making tar", "21.gif", "rgb(255,190,99)", "0", "1", "1", "0", [0, 0, 0]),
-        new _localization("A timber yard", "22.gif", "rgb(255,190,99)", "0", "1", "1", "1", [0, 0, 0]),
-        new _localization("You are by a roadside shrine", "23.gif", "rgb(167,245,63)", "1", "1", "1", "1", [10, 0, 0]),
-        new _localization("You are by a small chapel", "24.gif", "rgb(212,229,36)", "0", "1", "0", "1", [0, 0, 0]),
-        new _localization("You are on a road leading to a wood", "25.gif", "rgb(167,245,63)", "0", "1", "1", "1", [0, 0, 0]),
-        new _localization("You are in a forest", "26 i 65.gif", "rgb(167,245,63)", "0", "1", "0", "1", [0, 0, 0]),
-        new _localization("You are in a deep forest", "27 i 67.gif", "rgb(140,253,99)", "1", "0", "0", "1", [18, 0, 0])
+        new _localization("A man nearby making tar", "21.gif", "rgb(255,190,99)", 6, [0, 0, 0]),
+        new _localization("A timber yard", "22.gif", "rgb(255,190,99)", 7, [0, 0, 0]),
+        new _localization("You are by a roadside shrine", "23.gif", "rgb(167,245,63)", 15, [10, 0, 0]),
+        new _localization("You are by a small chapel", "24.gif", "rgb(212,229,36)", 5, [0, 0, 0]),
+        new _localization("You are on a road leading to a wood", "25.gif", "rgb(167,245,63)", 7, [0, 0, 0]),
+        new _localization("You are in a forest", "26 i 65.gif", "rgb(167,245,63)", 5 [0, 0, 0]),
+        new _localization("You are in a deep forest", "27 i 67.gif", "rgb(140,253,99)", 9, [18, 0, 0])
     ],
 
     //------------------------3
     [
-        new _localization("You are by the Vistula River", "31.gif", "rgb(122,232,252)", "1", "1", "0", "0", [0, 0, 0]),
-        new _localization("You are by the Vistula River", "32.gif", "rgb(140,214,255)", "1", "0", "0", "1", [32, 0, 0]),
-        new _localization("You are on a bridge over river", "33.gif", "rgb(108,181,242)", "1", "0", "1", "0", [0, 0, 0]),
-        new _localization("You are by the old tavern", "34.gif", "rgb(255,189,117)", "0", "1", "0", "0", [0, 0, 0]),
-        new _localization("You are at the town's end'", "35.gif", "rgb(255,190,99)", "1", "0", "1", "1", [0, 0, 0]),
-        new _localization("You are in a butcher's shop", "36.gif", "rgb(255,188,102)", "0", "0", "1", "0", [0, 0, 0]),
-        new _localization("You are in a cooper's house'", "37.gif", "rgb(255,188,102)", "0", "0", "1", "0", [0, 0, 0])
+        new _localization("You are by the Vistula River", "31.gif", "rgb(122,232,252)", 12, [0, 0, 0]),
+        new _localization("You are by the Vistula River", "32.gif", "rgb(140,214,255)", 9, [32, 0, 0]),
+        new _localization("You are on a bridge over river", "33.gif", "rgb(108,181,242)", 10, [0, 0, 0]),
+        new _localization("You are by the old tavern", "34.gif", "rgb(255,189,117)", 4, [0, 0, 0]),
+        new _localization("You are at the town's end'", "35.gif", "rgb(255,190,99)", 11, [0, 0, 0]),
+        new _localization("You are in a butcher's shop", "36.gif", "rgb(255,188,102)", 2, [0, 0, 0]),
+        new _localization("You are in a cooper's house'", "37.gif", "rgb(255,188,102)", 2, [0, 0, 0])
     ],
 
     //------------------------4
     [
-        new _localization("You are in the Wawel Castle", "41.gif", "rgb(255,176,141)", "0", "1", "0", "0", [0, 0, 0]),
-        new _localization("You are inside a dragon's cave", "42.gif", "rgb(198,205,193)", "0", "1", "0", "1", [0, 0, 0]),
-        new _localization("A perfect place to set a trap", "43.gif", "rgb(255,176,141)", "1", "0", "0", "1", [0, 0, 0]),
-        new _localization("You are by the water mill", "44.gif", "rgb(255,190,99)", "0", "1", "0", "0", [21, 0, 0]),
-        new _localization("You are at a main crossroad", "45.gif", "rgb(255,190,99)", "1", "1", "1", "1", [0, 0, 0]),
-        new _localization("You are on a town street", "46.gif", "rgb(255,190,99)", "1", "1", "0", "1", [0, 0, 0]),
-        new _localization("You are in a frontyard of your house", "47.gif", "rgb(255,190,99)", "1", "0", "1", "1", [0, 0, 0])
+        new _localization("You are in the Wawel Castle", "41.gif", "rgb(255,176,141)", 4, [0, 0, 0]),
+        new _localization("You are inside a dragon's cave", "42.gif", "rgb(198,205,193)", 5, [0, 0, 0]),
+        new _localization("A perfect place to set a trap", "43.gif", "rgb(255,176,141)", 9, [0, 0, 0]),
+        new _localization("You are by the water mill", "44.gif", "rgb(255,190,99)", 4, [21, 0, 0]),
+        new _localization("You are at a main crossroad", "45.gif", "rgb(255,190,99)", 15, [0, 0, 0]),
+        new _localization("You are on a town street", "46.gif", "rgb(255,190,99)", 13, [0, 0, 0]),
+        new _localization("You are in a frontyard of your house", "47.gif", "rgb(255,190,99)", 11, [0, 0, 0])
     ],
 
     //------------------------5
     [
          , , ,
-        new _localization("You are by a swift stream", "54.gif", "rgb(108,181,242)", "0", "1", "0", "0", [0, 0, 0]),
-        new _localization("You are on a street leading forest", "55.gif", "rgb(255,190,99)", "1", "0", "1", "1", [33, 0, 0]),
-        new _localization("You are in a woodcutter's backyard", "56.gif", "rgb(255,190,99)", "0", "0", "1", "0", [0, 0, 0]),
-        new _localization("You are in a shoemaker's house", "57.gif", "rgb(254,194,97)", "1", "0", "0", "0", [0, 0, 0])
+        new _localization("You are by a swift stream", "54.gif", "rgb(108,181,242)", 4, [0, 0, 0]),
+        new _localization("You are on a street leading forest", "55.gif", "rgb(255,190,99)", 11, [33, 0, 0]),
+        new _localization("You are in a woodcutter's backyard", "56.gif", "rgb(255,190,99)", 2, [0, 0, 0]),
+        new _localization("You are in a shoemaker's house", "57.gif", "rgb(254,194,97)", 8, [0, 0, 0])
     ],
 
     //------------------------6
     [
          , , ,
-        new _localization("You are in a bleak funeral house", "64.gif", "rgb(254,194,97)", "0", "1", "0", "0", [24, 0, 0]),
-        new _localization("You are on a path leading to the wood", "26 i 65.gif", "rgb(167,245,63)", "1", "1", "0", "1", [0, 0, 0]),
-        new _localization("You are at the edge of a forest", "66.gif", "rgb(167,245,63)", "1", "1", "0", "1", [0, 0, 0]),
-        new _localization("You are in a deep forest", "27 i 67.gif", "rgb(140,253,99)", "0", "0", "0", "1", [0, 0, 0])
+        new _localization("You are in a bleak funeral house", "64.gif", "rgb(254,194,97)", 4, [24, 0, 0]),
+        new _localization("You are on a path leading to the wood", "26 i 65.gif", "rgb(167,245,63)", 13, [0, 0, 0]),
+        new _localization("You are at the edge of a forest", "66.gif", "rgb(167,245,63)", 13, [0, 0, 0]),
+        new _localization("You are in a deep forest", "27 i 67.gif", "rgb(140,253,99)", 1, [0, 0, 0])
     ]
 ]
 
