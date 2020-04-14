@@ -12,6 +12,7 @@ INSTRUCTION = "NORTH or N, SOUTH or S <br><br> " +
     "DROP (object) or D (object) <br><br> " +
     "USE (object) or U (object) <br><br> " +
     "USE (object) or U (object) <br><br><br> " +
+    "G FOR LORE INFO <br><br><br> " +
     "Press any key"
 
 POISON_SHEEP = "Your fake sheep is full of poison and ready to be eaten by the dragon"

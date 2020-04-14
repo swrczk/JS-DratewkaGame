@@ -99,11 +99,10 @@ var logic = {
             let item = 0;
 
             if (pressedEnter(keyDownNumber) || isUp(keyDownNumber) || isDown(keyDownNumber) || isLeft(keyDownNumber) || isRight(keyDownNumber)) {
-                let consoleArg = gameConsole.value.toUpperCase().trim()
+                let consoleArg = $("#gameConsole").val().toUpperCase().trim()
 
                 if (!consoleArg.includes(" ")) {
                     consoleArg = whichDirection(consoleArg, keyDownNumber)
-
                 } else {
                     command = consoleArg.split(" ")
 
@@ -115,7 +114,7 @@ var logic = {
                             logic.action()
                             break;
                         }
-                    } while (command[1] != items[item].name && item <= items.length)
+                    } while (command[1] != items[item].name)
 
                 }
 
@@ -123,39 +122,14 @@ var logic = {
                 let commandResponse = document.getElementById("commandResponse")
                 let itemID;
 
-                function putPrevText() {
-
-                    setTimeout(function () {
-                        document.body.onkeydown = function () {
-
-                            commandResponse.style.visibility = "visible"
-                            gameConsole.style.visibility = "visible"
-                            let prevText = logic.text.split(".")
-                            let locDescription = prevText[0];
-                            for (let i = 1; i < prevText.length; i++) {
-                                locDescription += ".<br><br>" + prevText[i]
-                            }
-                            gameText.innerHTML = locDescription
-                            document.body.onkeydown = ""
-                            document.getElementById("gameConsole").focus()
-                        }
-                    }, SAVE_TIME)
-                }
-
                 switch (consoleArg) {
-                    case "V": //info
-                        logic.text = document.getElementById("gameText").textContent
-                        gameText.innerHTML = INSTRUCTION
-                        gameConsole.style.visibility = "hidden"
-                        commandResponse.style.visibility = "hidden"
-                        putPrevText()
-                        break;
-
-                    case "G": //lore
-                        logic.text = document.getElementById("gameText").textContent
-                        gameText.innerHTML = LORE_INFO
-                        gameConsole.style.visibility = "hidden"
-                        commandResponse.style.visibility = "hidden"
+                    case "V" :
+                    case "G": //info || lore
+                        logic.text = $("#gameText").text()
+                        if (consoleArg == "V") $("#gameText").html(INSTRUCTION)
+                        else $("#gameText").html(LORE_INFO)
+                        $("#gameConsole").hide()
+                        $("#commandResponse").hide()
                         putPrevText()
                         break;
 
@@ -199,8 +173,8 @@ var logic = {
                     case "W":
                         if (currentLoc.isWest() && logic.column == 3 && logic.row == 1 && logic.dragon == 0) {
                             logic.gameDescription = "You can't go that way... "
-                            commandResponse.innerHTML = logic.gameDescription
-                            gameConsole.style.display = "none"
+                            $("#commandResponse").html(logic.gameDescription)
+                            $("#gameConsole").hide()
                             setTimeout(function () {
                                 logic.gameDescription = " The dragon sleeps in a cave!"
                                 logic.action()
@@ -304,7 +278,7 @@ var logic = {
                         }
 
                         let effect;
-                        for (var i = 0; i < reactions.length; i++) {
+                        for (let i = 0; i < reactions.length; i++) {
                             if (logic.equipment == reactions[i].needed)
                                 effect = reactions[i]
                         }
@@ -331,22 +305,23 @@ var logic = {
 
                         if (effect.specialMark == "N") {
                             logic.gameDescription = effect.message[0]
-                            commandResponse.innerHTML = logic.gameDescription
-                            gameConsole.style.display = "none"
+                            $("#commandResponse").html(logic.gameDescription)
+                            $("#gameConsole").hide()
                             setTimeout(function () {
                                 logic.gameDescription = effect.message[1]
-                                commandResponse.innerHTML = logic.gameDescription
-                                gameConsole.style.display = "none"
-                            }, 2000)
-                            setTimeout(function () {
-                                logic.gameDescription = effect.message[2]
-                                logic.action()
-                            }, 4001)
-                            setTimeout(function () {
-                                logic.equipment = effect.result
-                                logic.gameDescription = effect.message
-                                logic.loadData()
-                            }, 6002)
+                                $("#commandResponse").html(logic.gameDescription)
+                                $("#gameConsole").hide()
+                                setTimeout(function () {
+                                    logic.gameDescription = effect.message[2]
+                                    logic.action()
+
+                                    setTimeout(function () {
+                                        logic.equipment = effect.result
+                                        logic.gameDescription = effect.message
+                                        logic.loadData()
+                                    }, ACTION_TIME)
+                                }, ACTION_TIME)
+                            }, ACTION_TIME)
                             break;
                         }
                         logic.equipment = effect.result
@@ -364,13 +339,13 @@ var logic = {
                                     for (let i = 0; i < currentLoc.locItem.length; i++) {
                                         currentLoc.locItem[i] = 0
                                     }
-                                    commandResponse.innerHTML = logic.gameDescription
-                                    gameConsole.style.display = "none"
+                                    $("#commandResponse").html(logic.gameDescription)
+                                    $("#gameConsole").hide()
                                     setTimeout(function () {
-                                        commandResponse.innerHTML = "What's now?"
-                                        gameConsole.style.display = "inline"
-                                        document.getElementById("gameConsole").focus()
-                                    }, 3500); //00
+                                        $("#commandResponse").html("What's now?")
+                                        $("#gameConsole").hide()
+                                        $("#gameConsole").focus()
+                                    }, ACTION_TIME);
                                     logic.loadData()
                                     break;
 
@@ -383,13 +358,13 @@ var logic = {
                             currentLoc.locItem[0] = logic.equipment
                             logic.equipment = 0
                             logic.gameDescription = effect.message[0]
-                            commandResponse.innerHTML = logic.gameDescription
-                            gameConsole.style.display = "none"
+                            $("#commandResponse").html(logic.gameDescription)
+                            $("#gameConsole").hide()
                             setTimeout(function () {
                                 logic.gameDescription = effect.message[1]
                                 logic.action()
                                 logic.loadData()
-                            }, 2000)
+                            }, ACTION_TIME)
                             logic.skin++
                             break;
                         }
@@ -406,7 +381,7 @@ var logic = {
                         break;
                 }
 
-                gameConsole.value = ""
+                $("#gameConsole").val("")
             }
 
         };
@@ -494,4 +469,23 @@ function setCurrentLocImg(currentLoc) {
 
 
     $("#locImage").css('backgroundColor', currentLoc.locColor)
+}
+
+function putPrevText() {
+
+    setTimeout(function () {
+        document.body.onkeydown = function () {
+
+            $("#commandResponse").show()
+            $("#gameConsole").show()
+            let prevText = logic.text.split(".")
+            let locDescription = prevText[0];
+            for (let i = 1; i < prevText.length; i++) {
+                locDescription += ".<br><br>" + prevText[i]
+            }
+            $("#gameText").html(locDescription)
+            document.body.onkeydown = ""
+            $("#gameConsole").focus()
+        }
+    }, SAVE_TIME)
 }
