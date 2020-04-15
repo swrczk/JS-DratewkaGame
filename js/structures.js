@@ -1,37 +1,30 @@
-// function $(name){
-//     let type = name[0]
-//     switch(type){
-//         case "#":
-//             return document.getElementById(name.substring(1))
-//         case ".":
-//             return document.getElementsByClassName(name.substring(1))
-//     }
-// }
-
 function _localization() {
     this.locTitle = arguments[0]
     this.locColor = arguments[1]
-    this.directions=arguments[2] // N-8, E-4, S-2, W-1
+    this.directions = arguments[2] // N-8, E-4, S-2, W-1
     this.locItem = arguments[3]
-
 
     this.isNorth = function () {
         return (this.directions & 8);
     }
+
     this.isEast = function () {
         return (this.directions & 4);
     }
+
     this.isSouth = function () {
         return (this.directions & 2);
     }
+
     this.isWest = function () {
         return (this.directions & 1);
     }
-    this.changePlace= function (consoleArg) {
+
+    this.changePlace = function (consoleArg) {
         let isOpenPath = false
         let specialCase = false
 
-        consoleArg=engine.nameOfDirection(consoleArg)
+        consoleArg = engine.nameOfDirection(consoleArg)
         switch (consoleArg) {
             case "NORTH":
                 if (this.isNorth()) {
@@ -90,9 +83,21 @@ function _reaction() {
     this.specialMark = arguments[4]
 }
 
-function _items()
-{
+function _items() {
     this.fullName = arguments[0]
-    this.specialMark = arguments[1]
-    this.name = arguments[2]
+    this.name = arguments[1]
+
+    this.canLift = function () {
+        return this.name[0] === this.name[0].toUpperCase()
+    }
 }
+
+// function $(name){
+//     let type = name[0]
+//     switch(type){
+//         case "#":
+//             return document.getElementById(name.substring(1))
+//         case ".":
+//             return document.getElementsByClassName(name.substring(1))
+//     }
+// }

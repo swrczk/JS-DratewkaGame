@@ -5,6 +5,7 @@ var player = {
     skin: 0,
     dragon: 0
 }
+
 var places = [
     undefined,
     //------------------------1
@@ -35,7 +36,7 @@ var places = [
     [
         undefined,
         new _localization("You are by the Vistula River", "rgb(122,232,252)", 12, []),
-        new _localization("You are by the Vistula River", "rgb(140,214,255)", 9, [23,]),
+        new _localization("You are by the Vistula River", "rgb(140,214,255)", 9, [23]),
         new _localization("You are on a bridge over river", "rgb(108,181,242)", 10, []),
         new _localization("You are by the old tavern", "rgb(255,189,117)", 4, []),
         new _localization("You are at the town's end'", "rgb(255,190,99)", 11, []),
@@ -105,33 +106,34 @@ var reactions = [
     new _reaction(27, 41, null, null, "K")
 ]
 
-var items = [,
-    new _items("a KEY", 1, "KEY"),
-    new _items("an AXE", 1, "AXE"),
-    new _items("STICKS", 1, "STICKS"),
-    new _items("sheeplegs", 0, "sheeplegs"),
-    new _items("MUSHROOMS", 1, "MUSHROOMS"),
-    new _items("MONEY", 1, "MONEY"),
-    new _items("a BARREL", 1, "BARREL"),
-    new _items("a sheeptrunk", 0, "sheeptrunk"),
-    new _items("BERRIES", 1, "BERRIES"),
-    new _items("WOOL", 1, "WOOL"),
-    new _items("a sheepskin", 0, "sheepskin"),
-    new _items("a BAG", 1, "BAG"),
-    new _items("a RAG", 1, "RAG"),
-    new _items("a sheephead", 0, "sheephead"),
-    new _items("a SPADE", 1, "SPADE"),
-    new _items("SULPHUR", 1, "SULPHUR"),
-    new _items("a solid poison", 0, "solid poison"),
-    new _items("a BUCKET", 1, "BUCKET"),
-    new _items("TAR", 1, "TAR"),
-    new _items("a liquid poison", 0, "liquid poison"),
-    new _items("a dead dragon", 0, "dead dragon"),
-    new _items("a STONE", 1, "STONE"),
-    new _items("a FISH", 1, "FISH"),
-    new _items("a KNIFE", 1, "KNIFE"),
-    new _items("a DRAGONSKIN", 1, "DRAGONSKIN"),
-    new _items("a dragonskin SHOES", 1, "SHOES"),
-    new _items("a PRIZE", 1, "PRIZE"),
-    new _items("a SHEEP", 1, "SHEEP")
+var items = [
+    undefined,
+    new _items("a KEY", "KEY"),
+    new _items("an AXE", "AXE"),
+    new _items("STICKS", "STICKS"),
+    new _items("sheeplegs", "sheeplegs"),
+    new _items("MUSHROOMS", "MUSHROOMS"),
+    new _items("MONEY", "MONEY"),
+    new _items("a BARREL", "BARREL"),
+    new _items("a sheeptrunk", "sheeptrunk"),
+    new _items("BERRIES", "BERRIES"),
+    new _items("WOOL", "WOOL"),
+    new _items("a sheepskin", "sheepskin"),
+    new _items("a BAG", "BAG"),
+    new _items("a RAG", "RAG"),
+    new _items("a sheephead", "sheephead"),
+    new _items("a SPADE", "SPADE"),
+    new _items("SULPHUR", "SULPHUR"),
+    new _items("a solid poison", "solid poison"),
+    new _items("a BUCKET", "BUCKET"),
+    new _items("TAR", "TAR"),
+    new _items("a liquid poison", "liquid poison"),
+    new _items("a dead dragon", "dead dragon"),
+    new _items("a STONE", "STONE"),
+    new _items("a FISH", "FISH"),
+    new _items("a KNIFE", "KNIFE"),
+    new _items("a DRAGONSKIN", "DRAGONSKIN"),
+    new _items("a dragonskin SHOES", "SHOES"),
+    new _items("a PRIZE", "PRIZE"),
+    new _items("a SHEEP", "SHEEP")
 ]

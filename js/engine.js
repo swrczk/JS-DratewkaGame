@@ -190,7 +190,7 @@ var engine = {
             if (item === items.length) {
                 return -1
             }
-        } while (itemName !== items[item].name)
+        } while (itemName !== items[item].name.toUpperCase())
         return item
     },
 

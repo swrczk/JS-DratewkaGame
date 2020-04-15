@@ -10,8 +10,8 @@ var itemsAction = {
                 engine.defaultConsole()
         }, ACTION_TIME)
     },
-    feedingDragon: function (effect,currentLoc) {
 
+    feedingDragon: function (effect,currentLoc) {
         player.dragon++
         player.equipment = 0
         engine.gameDescription = effect.message[0]
@@ -22,18 +22,19 @@ var itemsAction = {
             currentLoc.locItem[0] = effect.result
         }, ACTION_TIME)
         player.skin++
-    } ,
+    },
+
     cuttingDragonSkin: function (effect) {
         if (player.skin === 0) {
             engine.gameDescription = "Nothing happened"
             engine.displayAction()
         }
         player.equipment = effect.result
-    }
-    ,
+    },
+
     importantItem: function (currentLoc,effect) {
         player.necessaryItems++
-        currentLoc.locItem.push(player.equipment)
+        currentLoc.locItem.push(effect.result)
         player.equipment = 0
         engine.displayAction()
 

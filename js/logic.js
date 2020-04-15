@@ -70,13 +70,13 @@ var logic = {
     takeItem: function (currentLoc, calledItemID) {
 
         if (currentLoc.locItem.indexOf(calledItemID) !== -1) {
-            if (items[calledItemID].specialMark === 0) {
-                engine.gameDescription = "You can't carry it"
-            } else {
+            if (items[calledItemID].canLift()) {
                 player.equipment = calledItemID
                 currentLoc.locItem.splice(currentLoc.locItem.indexOf(calledItemID), 1)
                 engine.gameDescription = "You are taking " + items[calledItemID].fullName
                 engine.loadData()
+            } else {
+                engine.gameDescription = "You can't carry it"
             }
         } else {
             engine.gameDescription = "There isn't anything like that here"
@@ -91,9 +91,7 @@ var logic = {
             let specialItemLimit = 0;
             for (let i = 0; i < currentLoc.locItem.length; i++) {
                 if (currentLoc.locItem[i] !== 0) {
-                    if (items[currentLoc.locItem[i]].specialMark === 1) {
-                        specialItemLimit++
-                    }
+                    specialItemLimit++
                 }
             }
 
