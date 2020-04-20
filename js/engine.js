@@ -97,9 +97,9 @@ var engine = {
         }, SAVE_TIME)
     },
 
+    /* można ifa zastąpić returnem */
     isUp: function (number) {
-        if (number === 38) return true
-        else false
+        return number === 38;
     },
 
     isDown: function (number) {
