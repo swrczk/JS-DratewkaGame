@@ -71,6 +71,7 @@ var game = {
             let keyDownNumber = e.which
 
             if (engine.pressedEnter(keyDownNumber) || engine.isUp(keyDownNumber) || engine.isDown(keyDownNumber) || engine.isLeft(keyDownNumber) || engine.isRight(keyDownNumber))
+
                 logic.makeAction(keyDownNumber)
         }
     },

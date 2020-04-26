@@ -1,6 +1,7 @@
 var engine = {
     gameDescription: "",
     text: "",
+
     displayAction: function () {
         $("#commandResponse").html(engine.gameDescription)
         $("#gameConsole").hide()
