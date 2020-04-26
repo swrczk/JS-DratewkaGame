@@ -12,16 +12,24 @@ var logic = {
         } else {
             consoleArg = engine.whichDirection(consoleArg, keyDownNumber)
         }
+        
+        console.log('makeAction', consoleArg);
 
         if ("N|S|E|W".includes(consoleArg))
             currentLoc.changePlace(consoleArg)
         else
             switch (consoleArg) {
+                //lepiej było to rozbić
                 case "V" :
+                    engine.text = $("#gameText").text()
+                    $("#gameText").html(INSTRUCTION)
+                    $("#gameConsole").hide()
+                    $("#commandResponse").hide()
+                    engine.putPrevText()
+                    break;
                 case "G": //info || lore
                     engine.text = $("#gameText").text()
-                    if (consoleArg === "V") $("#gameText").html(INSTRUCTION)
-                    else $("#gameText").html(LORE_INFO)
+                    $("#gameText").html(LORE_INFO)
                     $("#gameConsole").hide()
                     $("#commandResponse").hide()
                     engine.putPrevText()

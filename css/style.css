@@ -146,6 +146,9 @@ img {
     font-size: 35px;
 }
 
+#intro{
+    padding: 100px;
+}
 #endContainer {
     position: absolute;
     top: 0;
