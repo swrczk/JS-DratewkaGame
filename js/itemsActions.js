@@ -1,4 +1,7 @@
-var itemsAction = { 
+
+import {engine} from "./engine.js"
+
+export let itemsAction = {
     digging: function (n,effect) {
         engine.gameDescription = effect.message[n]
         $("#commandResponse").html(engine.gameDescription)

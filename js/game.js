@@ -1,4 +1,7 @@
-var game = {
+import {engine} from "./engine.js"
+import {logic} from "./logic.js";
+
+export let game = {
     gameIntro: function () {
         /*
          * zamiast używać document.createElement("DIV") możesz skorzystać z bardziej czytelnego tworzenia (IMHO)

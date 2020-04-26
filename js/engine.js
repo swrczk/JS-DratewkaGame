@@ -1,4 +1,4 @@
-var engine = {
+export let engine = {
     gameDescription: "",
     text: "",
 
@@ -97,7 +97,7 @@ var engine = {
             }
         }, SAVE_TIME)
     },
- 
+
     isUp: function (number) {
         return number === 38;
     },
@@ -189,7 +189,7 @@ var engine = {
         return item
     },
 
-    defaultConsole() {
+    defaultConsole: function () {
         $("#commandResponse").html("What's now?")
         $("#gameConsole").show()
         $("#gameConsole").focus()

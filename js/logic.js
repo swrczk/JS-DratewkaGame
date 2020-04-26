@@ -1,4 +1,8 @@
-var logic = {
+import {engine} from "./engine.js"
+import {itemsAction} from "./itemsActions.js";
+import {game} from "./game.js";
+
+export let logic = {
     makeAction: function (keyDownNumber) {
         let currentLoc = places[Math.floor(player.instance / 10)][player.instance % 10]
         let command = 0;
