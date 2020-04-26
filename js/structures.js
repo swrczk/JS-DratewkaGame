@@ -1,8 +1,11 @@
-function _localization() {
-    this.locTitle = arguments[0]
-    this.locColor = arguments[1]
-    this.directions = arguments[2] // N-8, E-4, S-2, W-1
-    this.locItem = arguments[3]
+// trochę lepsze niż niejawne arguments[n]
+// w sumie podczas inicjalizacji items nie musi być tablicą...
+function _localization(title, color, directions, items) {
+    //można by pomyśleć nad domyślnymi wartościami
+    this.locTitle = title || 'Dummy title';
+    this.locColor = color;
+    this.directions = directions; // N-8, E-4, S-2, W-1
+    this.locItem = items;
 
     this.isNorth = function () {
         return (this.directions & 8);
@@ -75,6 +78,7 @@ function _localization() {
     }
 }
 
+//zostawiam dla ciebie ;)
 function _reaction() {
     this.needed = arguments[0]
     this.location = arguments[1]
