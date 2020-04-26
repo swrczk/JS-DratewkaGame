@@ -79,17 +79,17 @@ function _localization(title, color, directions, items) {
 }
 
 //zostawiam dla ciebie ;)
-function _reaction() {
-    this.needed = arguments[0]
-    this.location = arguments[1]
-    this.result = arguments[2]
-    this.message = arguments[3]
-    this.specialMark = arguments[4]
+function _reaction(need,loc,result,message,specialMark) {
+    this.needed = need
+    this.location = loc
+    this.result = result
+    this.message = message
+    this.specialMark = specialMark
 }
 
-function _items() {
-    this.fullName = arguments[0]
-    this.name = arguments[1]
+function _items(fullName,name) {
+    this.fullName = fullName
+    this.name = name
 
     this.canLift = function () {
         return this.name[0] === this.name[0].toUpperCase()

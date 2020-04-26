@@ -97,35 +97,29 @@ var engine = {
             }
         }, SAVE_TIME)
     },
-
-    /* można ifa zastąpić returnem */
+ 
     isUp: function (number) {
         return number === 38;
     },
 
     isDown: function (number) {
-        if (number === 40) return true
-        else false
+        return number === 40
     },
 
     isLeft: function (number) {
-        if (number === 37) return true
-        else false
+        return number === 37
     },
 
     isRight: function (number) {
-        if (number === 39) return true
-        else false
+        return number === 39
     },
 
     pressedEnter: function (number) {
-        if (number === 13) return true
-        else false
+        return number === 13
     },
 
     pressedSpace: function (number) {
-        if (number === 32) return true
-        else false
+        return number === 32
     },
 
     whichDirection: function (consoleArg, keyNumber) {
