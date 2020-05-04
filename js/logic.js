@@ -1,5 +1,5 @@
-var logic = {
-    makeAction: function (keyDownNumber) {
+var logic = (function(){
+    function makeAction (keyDownNumber) {
         let currentLoc = places[Math.floor(player.instance / 10)][player.instance % 10]
         let command = 0;
         let calledItemID = 0;
@@ -73,9 +73,9 @@ var logic = {
 
         if (engine.gameDescription) engine.displayAction()
         $("#gameConsole").val("")
-    },
+    }
 
-    takeItem: function (currentLoc, calledItemID) {
+    function takeItem (currentLoc, calledItemID) {
 
         if (currentLoc.locItem.indexOf(calledItemID) !== -1) {
             if (items[calledItemID].canLift()) {
@@ -89,9 +89,9 @@ var logic = {
         } else {
             engine.gameDescription = "There isn't anything like that here"
         }
-    },
+    }
 
-    dropItem: function (currentLoc, calledItemID) {
+    function dropItem (currentLoc, calledItemID) {
         if (calledItemID === -1 || player.equipment !== calledItemID) {
             engine.gameDescription = "You are not carrying it"
         } else {
@@ -112,9 +112,9 @@ var logic = {
                 engine.loadData()
             }
         }
-    },
+    }
 
-    useItem: function (currentLoc, effect) {
+    function useItem (currentLoc, effect) {
         switch (effect.specialMark) {
             case "K":
                 game.end()
@@ -143,5 +143,12 @@ var logic = {
         engine.gameDescription = effect.message
         engine.loadData()
     }
-}
+
+    return{
+        makeAction:makeAction,
+        takeItem:takeItem,
+        dropItem:dropItem,
+        useItem:useItem
+    }
+})();
 
