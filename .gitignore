@@ -3,5 +3,5 @@ moje
 moje/
 .idea
 .idea/
-node_modules
-node_modules/
+tests/node_modules
+tests/node_modules/
