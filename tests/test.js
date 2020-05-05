@@ -1,4 +1,4 @@
- var assert = require('chai').assert;
+var assert = require('chai').assert;
 var engine = require('../js/engine')
 // var numbers = [1, 2, 3, 4, 5];
 //
