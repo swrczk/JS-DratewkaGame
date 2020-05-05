@@ -1,16 +1,17 @@
-var engine = {
-    gameDescription: "",
-    text: "",
-    displayAction: function () {
+var engine = (function () {
+    var gameDescription = ""
+    var text = ""
+
+    function displayAction() {
         $("#commandResponse").html(engine.gameDescription)
         $("#gameConsole").hide()
 
         setTimeout(function () {
             engine.defaultConsole()
         }, ACTION_TIME)
-    },
+    }
 
-    loadData: function () {
+    function loadData() {
         setTimeout(function () {
             let currentLoc = places[Math.floor(player.instance / 10)][player.instance % 10]
             engine.setCompassDefault()
@@ -58,16 +59,16 @@ var engine = {
 
             $("#gameText").html(locDescription + ". <br><br>" + availableItemsNames + ". <br><br>" + carrying + ". ")
         }, ACTION_TIME)
-    },
+    }
 
-    setCompassDefault: function () {
+    function setCompassDefault() {
         $("#compassN").show()
         $("#compassS").show()
         $("#compassE").show()
         $("#compassW").show()
-    },
+    }
 
-    setCurrentLocImg: function (currentLoc) {
+    function setCurrentLocImg(currentLoc) {
         $("#locTitle").html(currentLoc.locTitle)
         $("#locImage").html("")
         let currentLocImg = document.createElement("IMG")
@@ -76,11 +77,12 @@ var engine = {
         currentLocImg.setAttribute("src", "img/" + src)
         $("#locImage").append(currentLocImg)
         $("#locImage").css('backgroundColor', currentLoc.locColor)
-    },
+    }
 
-    putPrevText: function () {
+    function putPrevText() {
         setTimeout(function () {
-            document.body.onkeydown = function () {
+            document.body.onkeydown()
+            {
 
                 $("#commandResponse").show()
                 $("#gameConsole").show()
@@ -90,44 +92,45 @@ var engine = {
                     locDescription += ".<br><br>" + prevText[i]
                 }
                 $("#gameText").html(locDescription)
-                document.body.onkeydown = function () {
+                document.body.onkeydown()
+                {
                 }
                 $("#gameConsole").focus()
             }
         }, SAVE_TIME)
-    },
+    }
 
     /* można ifa zastąpić returnem */
-    isUp: function (number) {
+    function isUp(number) {
         return number === 38;
-    },
+    }
 
-    isDown: function (number) {
+    function isDown(number) {
         if (number === 40) return true
         else false
-    },
+    }
 
-    isLeft: function (number) {
+    function isLeft(number) {
         if (number === 37) return true
         else false
-    },
+    }
 
-    isRight: function (number) {
+    function isRight(number) {
         if (number === 39) return true
         else false
-    },
+    }
 
-    pressedEnter: function (number) {
+    function pressedEnter(number) {
         if (number === 13) return true
         else false
-    },
+    }
 
-    pressedSpace: function (number) {
+    function pressedSpace(number) {
         if (number === 32) return true
         else false
-    },
+    }
 
-    whichDirection: function (consoleArg, keyNumber) {
+    function whichDirection(consoleArg, keyNumber) {
         if (consoleArg.length === 1)
             return consoleArg
 
@@ -143,9 +146,9 @@ var engine = {
         if (consoleArg === "EAST" || engine.isRight(keyNumber)) {
             return "E"
         }
-    },
+    }
 
-    nameOfDirection: function (consoleArg) {
+    function nameOfDirection(consoleArg) {
         if (consoleArg.length > 1)
             return consoleArg
         switch (consoleArg) {
@@ -158,9 +161,9 @@ var engine = {
             case"E":
                 return "EAST"
         }
-    },
+    }
 
-    whichAction: function (command) {
+    function whichAction(command) {
         if (command.length === 1)
             return command
         switch (command) {
@@ -171,9 +174,9 @@ var engine = {
             case "USE" :
                 return "U"
         }
-    },
+    }
 
-    emptyEquipment: function () {
+    function emptyEquipment() {
         if (player.equipment === 0) {
             engine.gameDescription = "You are not carrying anything"
             return true
@@ -181,9 +184,9 @@ var engine = {
             engine.gameDescription = "You are carrying something"
             return false
         }
-    },
+    }
 
-    getItemID: function (itemName) {
+    function getItemID(itemName) {
         let item = 0
         do {
             item++
@@ -192,11 +195,33 @@ var engine = {
             }
         } while (itemName !== items[item].name.toUpperCase())
         return item
-    },
+    }
 
-    defaultConsole() {
+    function defaultConsole() {
         $("#commandResponse").html("What's now?")
         $("#gameConsole").show()
         $("#gameConsole").focus()
     }
-}
+
+    return {
+        gameDescription: gameDescription,
+        text: text,
+        displayAction: displayAction,
+        loadData: loadData,
+        setCompassDefault: setCompassDefault,
+        setCurrentLocImg: setCurrentLocImg,
+        putPrevText: putPrevText,
+        isUp: isUp,
+        isDown: isDown,
+        isLeft: isLeft,
+        isRight: isRight,
+        pressedEnter: pressedEnter,
+        pressedSpace: pressedSpace,
+        whichDirection: whichDirection,
+        nameOfDirection: nameOfDirection,
+        whichAction: whichAction,
+        emptyEquipment: emptyEquipment,
+        getItemID: getItemID,
+        defaultConsole: defaultConsole
+    }
+})();

@@ -1,3 +1,7 @@
 #ignore my content
 moje
 moje/
+.idea
+.idea/
+tests/node_modules
+tests/node_modules/

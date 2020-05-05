@@ -1,5 +1,5 @@
-var game = {
-    gameIntro: function () {
+var game = (function () {
+    function gameIntro() {
         /*
          * zamiast używać document.createElement("DIV") możesz skorzystać z bardziej czytelnego tworzenia (IMHO)
          * resztę ci zostawię do poćwiczenia
@@ -35,9 +35,9 @@ var game = {
             }, INTRO_TIME)
 
         }, INTRO_TIME)
-    },
+    }
 
-    instruction: function () {
+    function instruction() {
         let instruction = document.createElement("DIV")
         instruction.id = "intro"
         instruction.style.backgroundColor = "black"
@@ -52,9 +52,9 @@ var game = {
             game.instruction = function () {
             }
         })
-    },
+    }
 
-    start: function () {
+    function start() {
 
         //----------konsola
         $("#gameConsole").blur()
@@ -62,28 +62,29 @@ var game = {
             /*
              * ten kodzik zmienia graczowi wpisaną opcję na dużą literę i to widać
              * poza tym używasz e.which, gdzie masz kod klawisza
-             */ 
+             */
             $("#gameConsole").val(function (i, val) {
                 return val.toUpperCase();
             })
             game.consoleTurnOn()
         })
-    },
+    }
 
     //to używasz tylko w start - można by tam przenieść i zrobić ładny events chaining
     //chociaż keyup wydaje mi się zbędny
-    consoleTurnOn: function () {
+    function consoleTurnOn() {
         let gameConsole = document.getElementById("gameConsole");
         gameConsole.onkeydown = function (e) {
 
             let keyDownNumber = e.which
 
             if (engine.pressedEnter(keyDownNumber) || engine.isUp(keyDownNumber) || engine.isDown(keyDownNumber) || engine.isLeft(keyDownNumber) || engine.isRight(keyDownNumber))
+
                 logic.makeAction(keyDownNumber)
         }
-    },
+    }
 
-    end: function () {
+    function end() {
         let endDiv = document.createElement("DIV");
         endDiv.id = "end"
         document.body.appendChild(endDiv)
@@ -119,4 +120,12 @@ var game = {
             endExplosionImg.setAttribute("src", "img/gif.gif")
         }, 0.5 * 1000)
     }
-}
+
+    return{
+        gameIntro:gameIntro,
+        instruction:instruction,
+        start:start,
+        consoleTurnOn:consoleTurnOn,
+        end:end
+    }
+})();
