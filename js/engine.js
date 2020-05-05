@@ -225,3 +225,5 @@ var engine = (function () {
         defaultConsole: defaultConsole
     }
 })();
+
+module.exports=engine

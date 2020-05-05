@@ -1,0 +1,19 @@
+{
+  "name": "dratewka",
+  "version": "1.0.0",
+  "dependencies": {},
+  "description": "Single player RPG on browser.",
+  "main": "test.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test2": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
